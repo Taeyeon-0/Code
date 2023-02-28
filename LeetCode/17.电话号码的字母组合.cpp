@@ -10,6 +10,8 @@ class Solution
     string _numTostr[10] = {"", "", "abc", "def", "ghi", "jki", "mno", "pqrs", "tuv", "wxyz"};
 
 public:
+//digits是原数字串，di为递归层数，也就是数字串的第几位
+//combineStr是一开始由空串+=递归的串所得，作用是尾插到strV中
     void Combinations(const string &digits, size_t di, string combineStr, vector<string> &strV)
     {
         //当di等于digits数字字符的大小，说明树已经走到底了，可以尾插字符串到strv中了，然后返回，继续递归
@@ -30,11 +32,14 @@ public:
     }
     vector<string> letterCombinations(string digits)
     {
+        //strV是返回串，用来返回结果
         vector<string> strV;
+        //如果digits本身为空，那么就直接返回strV，否则会push_back一个空值
         if (digits == "")
         {
             return strV;
         }
+        //递归函数
         Combinations(digits, 0, "", strV);
         return strV;
     }
