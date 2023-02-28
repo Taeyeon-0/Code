@@ -8,7 +8,6 @@ class Solution
 {
     // 将数字对应的电话号码写入数组中
     string _numTostr[10] = {"", "", "abc", "def", "ghi", "jki", "mno", "pqrs", "tuv", "wxyz"};
-
 public:
 //digits是原数字串，di为递归层数，也就是数字串的第几位
 //combineStr是一开始由空串+=递归的串所得，作用是尾插到strV中
