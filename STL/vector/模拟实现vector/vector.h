@@ -2,176 +2,261 @@
 #include<string.h>
 #include<iostream>
 #include<assert.h>
+#include<algorithm>
+#include<functional>
+#include<string.h>
 using namespace std;
-template<class T>
-class vector
+namespace phw
 {
-public:
-	typedef	T* iterator;   //iterator为T类型的指针
-	typedef	const T* const_iterator;   //iterator为T类型的指针
-	vector()
-		:_start(nullptr)
-		, _finish(nullptr)
-		, _end_of_storage(nullptr)
-	{}
-
-
-	iterator begin()
+	template<class T>
+	class vector
 	{
-		return _start;
-	}
+	public:
+		typedef	T* iterator;   //iterator为T类型的指针
+		typedef	const T* const_iterator;   //iterator为T类型的指针
+		vector()
+			:_start(nullptr)
+			, _finish(nullptr)
+			, _end_of_storage(nullptr)
+		{}
 
-	iterator end()
-	{
-		return _finish;
-	}
-
-	//这里必须加上const，两个begin函数，只是参数返回类型不同
-	//编译器无法根据函数返回类型来区分函数，
-	//因为函数重载不允许仅仅因为返回类型不同而进行区分。这将导致编译错误。
-	//加入const修饰符，以便编译器可以正确地区分这两个函数
-	const_iterator begin() const
-	{
-		return _start;
-	}
-
-	const_iterator end() const
-	{
-		return _finish;
-	}
-
-	void reserve(size_t n)
-	{
-		//n>capacity才需要扩容,否则n<capacity可能会缩容
-		if (n > capacity())
+		~vector()
 		{
-			size_t sz = size();  //提前记录sz大小
-			T* tmp = new T[n];
+			delete[] _start;
+			_start = _finish = _end_of_storage = nullptr;
+		}
 
-			if (_start)
+		vector(size_t n, const T& val = T())
+			:_start(nullptr)
+			, _finish(nullptr)
+			, _end_of_storage(nullptr)
+		{
+			reserve(n);
+			for (size_t i = 0; i < n; i++)
 			{
-				//将_start的内存，复制到tmp中
-				memcpy(tmp, _start, sizeof(T) * size());
-				delete[] _start;
+				push_back(val);
 			}
-			_start = tmp;
-			_finish = _start + sz;   //size() _finish - _start  
-			//这里start更新了，而finish没有更新 start就是tmp   _start + _finish - _start  还是原来的_finish，finish为0，就会造成空指针解引用
-			//所以需要提前记录sz的大小,并且这里也处理了_finish一开始等于空的情况
-			_end_of_storage = _start + n;   //这里不能光写n  _end_of_storage是指针
+		}
+		//重载构造函数
+		vector(int n, const T& val = T())
+			:_start(nullptr)
+			, _finish(nullptr)
+			, _end_of_storage(nullptr)
+		{
+			reserve(n);
+			for (size_t i = 0; i < n; i++)
+			{
+				push_back(val);
+			}
+		}
+		//迭代器构造函数
+		template<class InputIterator>
+		vector(InputIterator first, InputIterator last)
+		{
+			while (first != last)
+			{
+				push_back(*first);
+				first++;
+			}
 		}
 
-	}
+		//深拷贝
+		/*vector(const vector<T>& v)
+		{
+			reserve(v.capacity());
+			for (auto e : v)
+			{
+				push_back(e);
+			}
+		}*/
 
-	void resize(size_t n,T val = T())  //T()默认构造，匿名对象，对于自定义类型，和内置类型比如int都会初始化
-	{
-		if (n < size())
+		vector(const vector<T>& v)
 		{
-			_finish = _start + n;
+			_start = new T[v.capacity()];
+			//memcpy(_start, v._start, sizeof(T) * v.size());  
+			//memcpy会还会导致深拷贝里的深拷贝问题。   
+			//对于自定义类型，自定义类型里的内存，会被复制，那么拷贝构造的会指向同一块空间，会因调用析构函数出现报错。
+			//在进行深拷贝时，应该确保源vector的元素数量小于或等于目标vector的容量，否则会发生缓冲区溢出。
+			//if (v.size() <= v.capacity())
+			//{
+				for (size_t i = 0; i < v.size(); i++)
+				{
+					//new (_start + i) T(v._start[i]);  
+					// 调用拷贝构造函数进行深拷贝
+					_start[i] = v._start[i];
+					//进行_start[i]赋值。赋值对于自定义类型，会额外开空间，进行深拷贝。这样就解决了深拷贝里的深拷贝
+				}
+			//}
+			_finish = _start + v.size();
+			_end_of_storage = _start + v.capacity();
 		}
-		else
+
+		iterator begin()
 		{
+			return _start;
+		}
+
+		iterator end()
+		{
+			return _finish;
+		}
+
+		//这里必须加上const，两个begin函数，只是参数返回类型不同
+		//编译器无法根据函数返回类型来区分函数，
+		//因为函数重载不允许仅仅因为返回类型不同而进行区分。这将导致编译错误。
+		//加入const修饰符，以便编译器可以正确地区分这两个函数
+		const_iterator begin() const
+		{
+			return _start;
+		}
+
+		const_iterator end() const
+		{
+			return _finish;
+		}
+
+		void reserve(size_t n)
+		{
+			//n>capacity才需要扩容,否则n<capacity可能会缩容
 			if (n > capacity())
 			{
-				reserve(n);
+				size_t sz = size();  //提前记录sz大小
+				T* tmp = new T[n];
+
+				if (_start)
+				{
+					//将_start的内存，复制到tmp中
+					//memcpy(tmp, _start, sizeof(T) * size()); //也会造成自定义类型的深拷贝中的深拷贝问题
+					for (size_t i = 0; i < sz; i++)
+					{
+						tmp[i] = _start[i];
+					}
+					delete[] _start;
+				}
+				_start = tmp;
+				_finish = _start + sz;   //size() _finish - _start  
+				//这里start更新了，而finish没有更新 start就是tmp   _start + _finish - _start  还是原来的_finish，finish为0，就会造成空指针解引用
+				//所以需要提前记录sz的大小,并且这里也处理了_finish一开始等于空的情况
+				_end_of_storage = _start + n;   //这里不能光写n  _end_of_storage是指针
 			}
-			while (_finish != _start + n)
+
+		}
+
+		void resize(size_t n, T val = T())  //T()默认构造，匿名对象，对于自定义类型，和内置类型比如int都会初始化
+		{
+			if (n < size())
 			{
-				*_finish = val;
-				_finish++;
+				_finish = _start + n;
+			}
+			else
+			{
+				if (n > capacity())
+				{
+					reserve(n);
+				}
+				while (_finish != _start + n)
+				{
+					*_finish = val;
+					_finish++;
+				}
 			}
 		}
-	}
 
-	void push_back(const T& x)
-	{
-
-		if (_finish == _end_of_storage)
+		void push_back(const T& x)
 		{
-			//扩容  一种是一开始都为NULL，另一种是需要扩容
-			reserve(capacity() == 0 ? 4 : capacity() * 2);
+
+			if (_finish == _end_of_storage)
+			{
+				//扩容  一种是一开始都为NULL，另一种是需要扩容
+				reserve(capacity() == 0 ? 4 : capacity() * 2);
+			}
+
+			*_finish = x; //可能发生空指针解引用
+			_finish++;
+
 		}
 
-		*_finish = x; //可能发生空指针解引用
-		_finish++;
+		void pop_back()
+		{
+			//当不为空才-- _finish
+			if (!empty())
+				_finish--;
+		}
 
-	}
+		void insert(iterator pos, const T& val)
+		{
+			assert(pos >= _start);
+			assert(pos <= _finish);
 
-	void pop_back()
-	{
-		//当不为空才-- _finish
-		if (!empty())
+			if (_finish == _end_of_storage)
+			{
+				//迭代器失效问题！
+				//reserve扩容，会释放掉旧空间，那么pos位置也会被释放，需要更新pos，解决pos失效的问题
+				//那么pos的位置怎么算呢，相对位置！ 算出pos之前的相对_start的相对位置
+				size_t len = pos - _start;
+				reserve(capacity() == 0 ? 4 : capacity() * 2);
+				//更新pos,_start + len( 没被释放前的相对位置)
+				pos = _start + len;
+			}
+
+			iterator end = _finish - 1;
+			while (end >= pos)
+			{
+				*(end + 1) = *end;
+				end--;
+			}
+			*pos = val;
+			_finish++;
+		}
+
+		//erase后迭代器需要更新，因为迭代器指向的在删除后，会改变指向
+		iterator erase(iterator pos)
+		{
+			assert(pos >= _start);
+			assert(pos < _finish);
+			iterator start = pos + 1;
+			while (start != _finish)
+			{
+				*(start - 1) = *(start);
+				++start;
+			}
 			_finish--;
-	}
 
-	void insert(iterator pos, const T& val)
-	{
-		assert(pos >= _start);
-		assert(pos <= _finish);
+			//返回pos的下一个地址，pos的下一个地址的值被赋值给上一个，所以还是返回pos。
+			return pos;
+		}
+
+		bool empty()
+		{
+			return _start == _finish;
+		}
+
+		size_t capacity()  const
+		{
+			return _end_of_storage - _start;
+		}
 		
-		if (_finish == _end_of_storage)
+		size_t size() const
 		{
-			//迭代器失效问题！
-			//reserve扩容，会释放掉旧空间，那么pos位置也会被释放，需要更新pos，解决pos失效的问题
-			//那么pos的位置怎么算呢，相对位置！ 算出pos之前的相对_start的相对位置
-			size_t len = pos - _start;
-			reserve(capacity() == 0 ? 4 : capacity() * 2);
-			//更新pos,_start + len( 没被释放前的相对位置)
-			pos = _start + len;
+			return _finish - _start;
 		}
 
-		iterator end = _finish - 1;
-		while (end >= pos)
+		T& operator[](size_t pos) const
 		{
-			*(end+1) = *end;
-			end--;
+			return _start[pos];
 		}
-		*pos = val;
-		_finish++;
-	}
 
-	void erase(iterator pos)
-	{
-		assert(pos >= _start);
-		assert(pos < _finish);
-		iterator start = pos + 1;
-		while (start != _finish)
+		const T& operator[](size_t pos)
 		{
-			*(start - 1) = *(start);
-			++start;
+			return _start[pos];
 		}
-		_finish--;
-	}
-	
 
-	bool empty()
-	{
-		return _start == _finish;
-	}
-
-	size_t capacity()  const
-	{
-		return _end_of_storage - _start;
-	}
-
-	size_t size() const
-	{
-		return _finish - _start;
-	}
-
-	T& operator[](size_t pos) const
-	{
-		return _start[pos];
-	}
-
-	const T& operator[](size_t pos)
-	{
-		return _start[pos];
-	}
-
-private:
-	iterator _start;
-	iterator _finish;
-	iterator _end_of_storage;
-
-};
+	private:
+		iterator _start;
+		iterator _finish;
+		iterator _end_of_storage;
+		//_start 为开始下标0
+		//_finish 为数值的下一个位置
+		//_end_of_storage 为容量
+	};
+}
