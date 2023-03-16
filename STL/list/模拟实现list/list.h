@@ -1,5 +1,7 @@
 #pragma once
 #include<assert.h>
+#include<iostream>
+using namespace std;
 //list  带头双向循环链表
 template<class T>
 struct list_node
@@ -123,9 +125,7 @@ public:
 	//typedef _list_const_iterator<T> const_iterator;
 	list()
 	{
-		_head = new node;
-		_head->_next = _head;
-		_head->_prev = _head;
+		empty_init();
 	}
 
 	iterator begin()
@@ -184,7 +184,7 @@ public:
 		new_node->_next = cur;
 		cur->_prev = new_node;
 	}
-	
+
 	void pop_back()
 	{
 		erase(--end());
@@ -195,7 +195,7 @@ public:
 		erase(begin());
 	}
 
-	void erase(iterator pos)
+	iterator erase(iterator pos)
 	{
 		assert(pos != end());
 		node* prev = pos._node->_prev;
@@ -204,6 +204,77 @@ public:
 		prev->_next = next;
 		next->_prev = prev;
 		delete pos._node;
+		//返回下一个地址
+		return iterator(next);
+	}
+
+	void empty_init()
+	{
+		_head = new node;
+		_head->_next = _head;
+		_head->_prev = _head;
+	}
+
+	//利用迭代器构造函数
+	template<class iterator>
+	list(iterator first, iterator last)
+	{
+		empty_init();
+		while (first != last)
+		{
+			push_back(*first);
+			++first;
+		}
+	}
+
+	//拷贝构造  lt2(lt1)  老方法
+	/*
+	list(const list<T>& lt)
+	{
+		empty_init();
+		for (auto e : lt)
+		{
+			push_back(e);
+		}
+	}
+	*/
+
+	void swap(list<T>& tmp)
+	{
+		std::swap(_head, tmp._head);
+	}
+
+	//拷贝构造-现代方法
+	list(const list<T>& lt)
+	{
+		empty_init();  //必须有，不然)_head就是空指针
+		list<T> tmp(lt.begin(), lt.end());
+		swap(tmp);
+	}
+
+	//赋值 lt1 = lt3                这里lt就是lt3的拷贝，lt1是this
+	list<T>& operator=(list<T> lt)
+	{
+		swap(lt);    //交换
+		return *this;  //返回自己就是返回lt3
+	}
+
+	~list()
+	{
+		clear();
+		delete _head;
+		_head = nullptr;
+	}
+
+	void clear()
+	{
+		//清理内存 - 不清理头节点
+		iterator it = begin();
+		while (it != end())
+		{
+			it = erase(it);  //erase返回下一个地址迭代器
+			//erase(it++);  //也可以
+		}
 	}
 private:
 	node* _head;  //头节点

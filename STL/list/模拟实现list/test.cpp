@@ -26,7 +26,7 @@ void test1()
 	while (it != lt.end())
 	{
 		cout << *it << " ";
-		it++;  
+		it++;
 	}
 	cout << endl;
 
@@ -45,7 +45,7 @@ struct AA
 
 	AA(int a1 = 0, int a2 = 0)
 		:_a1(a1)
-		,_a2(a2)
+		, _a2(a2)
 	{}
 };
 
@@ -62,7 +62,7 @@ void test2()
 		//cout << (*it)._a1 << " " << (*it)._a2 << " ";
 		//模拟箭头->
 		cout << it->_a1 << " " << it->_a2 << " ";
-		
+
 		++it;
 	}
 }
@@ -91,17 +91,75 @@ void test3()
 		cout << e << " ";
 	}
 	cout << endl;
-	
+
 	lt.pop_back();
 	lt.pop_front();
 	for (auto e : lt)
 	{
 		cout << e << " ";
-	}	
+	}
+}
+
+void test4()
+{
+	//const在定义的时候是没有const的属性的，不然在定义的时候就无法初始化了
+	const list<int> lt1;
+
+	list<int> lt;
+	lt.push_back(1);
+	lt.push_back(2);
+	lt.push_back(3);
+	lt.push_back(4);
+	for (auto e : lt)
+	{
+		cout << e << " ";
+	}
+	cout << endl;
+
+	lt.push_back(100);
+	lt.push_front(1000);
+	//lt.clear();
+	for (auto e : lt)
+	{
+		cout << e << " ";
+	}
+}
+
+//拷贝构造
+void test5()
+{
+	list<int> lt;
+	lt.push_back(1);
+	lt.push_back(2);
+	lt.push_back(3);
+	lt.push_back(4);
+	lt.push_back(5);
+
+	for (auto e : lt)
+	{
+		cout << e << " ";
+	}
+	cout << endl;
+
+	list<int> lt2(lt);
+
+	for (auto e : lt2)
+	{
+		cout << e << " ";
+	}
+	cout << endl;
+
+	list<int>lt3;
+	lt3 = lt;
+	for (auto e : lt2)
+	{
+		cout << e << " ";
+	}
+	cout << endl;
 }
 
 int main()
 {
-	test3();
+	test5();
 	return 0;
 }
