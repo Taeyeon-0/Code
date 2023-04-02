@@ -2,7 +2,7 @@
 #include<iostream>
 #include<assert.h>
 using namespace std;
-// ÀàÀïÃæ¶ÌÐ¡º¯Êý£¬ÊÊºÏ×öÄÚÁªµÄº¯Êý£¬Ö±½ÓÔÚÀàÀïÃæ¶¨Òå¡£
+// ç±»é‡Œé¢çŸ­å°å‡½æ•°ï¼Œé€‚åˆåšå†…è”çš„å‡½æ•°ï¼Œç›´æŽ¥åœ¨ç±»é‡Œé¢å®šä¹‰ã€‚
 class Date
 {
 public:
@@ -24,13 +24,13 @@ public:
 	Date operator-(int day);
 	//d1-d2
 	int operator-(const Date& d);
-	//Ç°ÖÃ++
+	//å‰ç½®++
 	Date& operator++();
-	//ºóÖÃ++
+	//åŽç½®++
 	Date operator++(int);
-	//Ç°ÖÃ--    --d -> d.operator--()
+	//å‰ç½®--    --d -> d.operator--()
 	Date& operator--();
-	//ºóÖÃ--    d--  -> d.operator--(int)
+	//åŽç½®--    d--  -> d.operator--(int)
 	Date operator--(int);
 	
 private:
