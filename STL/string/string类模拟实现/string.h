@@ -9,21 +9,21 @@ using namespace std;
 //	class string
 //	{
 //	public:
-//		//ÎŞ²Î¹¹Ôìº¯Êı
+//		//æ— å‚æ„é€ å‡½æ•°
 //		string()
 //			:_str(nullptr),
 //			_size(0),
 //			_capacity(0)
 //		{}
 //
-//		//´ø²Î¹¹Ôìº¯Êı
+//		//å¸¦å‚æ„é€ å‡½æ•°
 //		string(const char* str)
 //			:_str(str)
 //			, _size(strlen(str))
 //			, _capacity(strlen(str))
 //		{}
 //
-//		//»ñÈ¡×Ö·û´®
+//		//è·å–å­—ç¬¦ä¸²
 //		const char* c_str()
 //		{
 //			return _str;
@@ -48,7 +48,7 @@ using namespace std;
 //	{
 //		string s1;
 //		string s2("Hello World\n");
-//		cout << s1.c_str() << endl;  //s1Îª¿ÕÖ¸Õë£¬cout¶Ô¿ÕÖ¸Õë½âÒıÓÃ£¬±ÀÀ£
+//		cout << s1.c_str() << endl;  //s1ä¸ºç©ºæŒ‡é’ˆï¼Œcoutå¯¹ç©ºæŒ‡é’ˆè§£å¼•ç”¨ï¼Œå´©æºƒ
 //		cout << s2.c_str() << endl;
 //	}
 //}
@@ -59,25 +59,25 @@ using namespace std;
 //	class string
 //	{
 //	public:
-//		//ÎŞ²Î¹¹Ôìº¯Êı
+//		//æ— å‚æ„é€ å‡½æ•°
 //		string()
-//			:_str(new char[1]),  //newÒ»¸öchar
+//			:_str(new char[1]),  //newä¸€ä¸ªchar
 //			_size(0),
 //			_capacity(0)
 //		{
 //			_str[0] = '\0';
 //		}
 //
-//		//´ø²Î¹¹Ôìº¯Êı
+//		//å¸¦å‚æ„é€ å‡½æ•°
 //		string(const char* str)
 //			:_size(strlen(str))
 //		{
 //			_capacity = _size;
-//			_str = new char[_capacity + 1];   //new _capacity+1  capacityÊÇ×Ö·û´®ÈİÁ¿£¬´æ·ÅµÄÓĞĞ§×Ö·û´óĞ¡£¬²»ÊÇ¿Õ¼ä£¬¿Õ¼ä»¹ÓĞÒ»¸ö|0
+//			_str = new char[_capacity + 1];   //new _capacity+1  capacityæ˜¯å­—ç¬¦ä¸²å®¹é‡ï¼Œå­˜æ”¾çš„æœ‰æ•ˆå­—ç¬¦å¤§å°ï¼Œä¸æ˜¯ç©ºé—´ï¼Œç©ºé—´è¿˜æœ‰ä¸€ä¸ª|0
 //			strcpy(_str, str);
 //		}
 //
-//		//»ñÈ¡×Ö·û´®
+//		//è·å–å­—ç¬¦ä¸²
 //		const char* c_str()
 //		{
 //			return _str;
@@ -118,7 +118,7 @@ using namespace std;
 //}
 
 
-//3   2µÄÓÅ»¯
+//3   2çš„ä¼˜åŒ–
 namespace phw
 {
 	class string
@@ -126,34 +126,34 @@ namespace phw
 	public:
 		friend ostream& operator<<(ostream& out, const phw::string& s);
 		friend istream& operator>>(istream& in, phw::string& s);
-		//´ø²Î¹¹Ôìº¯Êı
-		//string(const char* str = nullptr)  //²»¿ÉÒÔ ¸ø¿ÕÖ¸Õë£¬strlen»á±¨´í
-		//string(const char* str = '\0')  //\0 char×ª»»³ÉÖ¸Õë£¬Ò²ÊÇ¿ÕÖ¸Õë
-		//string(const char* str = "\0")   //¿ÉÒÔ,¸ø³£Á¿×Ö·û´®£¬strlen²»»á±¨´í
-		string(const char* str = "")    //¿Õ×Ö·û´®Ä¬ÈÏÊÇ\0
+		//å¸¦å‚æ„é€ å‡½æ•°
+		//string(const char* str = nullptr)  //ä¸å¯ä»¥ ç»™ç©ºæŒ‡é’ˆï¼Œstrlenä¼šæŠ¥é”™
+		//string(const char* str = '\0')  //\0 charè½¬æ¢æˆæŒ‡é’ˆï¼Œä¹Ÿæ˜¯ç©ºæŒ‡é’ˆ
+		//string(const char* str = "\0")   //å¯ä»¥,ç»™å¸¸é‡å­—ç¬¦ä¸²ï¼Œstrlenä¸ä¼šæŠ¥é”™
+		string(const char* str = "")    //ç©ºå­—ç¬¦ä¸²é»˜è®¤æ˜¯\0
 			:_size(strlen(str))
 		{
-			_capacity = _size == 0 ? 3 : _size;  //×îÉÙ¸ø3¸ö×Ö½Ú¿Õ¼ä
-			_str = new char[_capacity + 1];   //new _capacity+1  capacityÊÇ×Ö·û´®ÈİÁ¿£¬´æ·ÅµÄÓĞĞ§×Ö·û´óĞ¡£¬²»ÊÇ¿Õ¼ä£¬¿Õ¼ä»¹ÓĞÒ»¸ö|0
+			_capacity = _size == 0 ? 3 : _size;  //æœ€å°‘ç»™3ä¸ªå­—èŠ‚ç©ºé—´
+			_str = new char[_capacity + 1];   //new _capacity+1  capacityæ˜¯å­—ç¬¦ä¸²å®¹é‡ï¼Œå­˜æ”¾çš„æœ‰æ•ˆå­—ç¬¦å¤§å°ï¼Œä¸æ˜¯ç©ºé—´ï¼Œç©ºé—´è¿˜æœ‰ä¸€ä¸ª|0
 			strcpy(_str, str);
 		}
-		//¿½±´¹¹Ôì 
+		//æ‹·è´æ„é€  
 		string(const string& s)
 			:_size(s._size)
 			, _capacity(s._capacity)
 		{
-			//_str×Ô¼º¿ª¿Õ¼ä
+			//_strè‡ªå·±å¼€ç©ºé—´
 			_str = new char[s._capacity + 1];
 			strcpy(_str, s._str);
 		}
-		//¸³ÖµÊÇ¶ÔÒÑ¾­¶¨ÒåµÄ¶ÔÏó½øĞĞ¸³Öµ
-		//ÓĞÒ»ÖÖÇé¿öÊÇ£¬Ô­¶ÔÏóµÄ¿Õ¼äÔ¶´óÓÚÒª¸³ÖµµÄ¶ÔÏó£¬ÄÇÃ´¾Í»á³öÏÖ¿Õ¼äÀË·Ñ
-		//ËùÒÔÊ×ÏÈÓ¦¸ÃdeleteµôÔ­¿Õ¼äµÄÄÚ´æ£¬ÔÚ½øĞĞ¸³Öµ
+		//èµ‹å€¼æ˜¯å¯¹å·²ç»å®šä¹‰çš„å¯¹è±¡è¿›è¡Œèµ‹å€¼
+		//æœ‰ä¸€ç§æƒ…å†µæ˜¯ï¼ŒåŸå¯¹è±¡çš„ç©ºé—´è¿œå¤§äºè¦èµ‹å€¼çš„å¯¹è±¡ï¼Œé‚£ä¹ˆå°±ä¼šå‡ºç°ç©ºé—´æµªè´¹
+		//æ‰€ä»¥é¦–å…ˆåº”è¯¥deleteæ‰åŸç©ºé—´çš„å†…å­˜ï¼Œåœ¨è¿›è¡Œèµ‹å€¼
 		string& operator =(const string& s)
 		{
 			if (this != &s)
 			{
-				//delete[]_str;  //¸³ÖµÌáÇ°°Ñ¾É¿Õ¼äÊÍ·Å£¬·ÀÖ¹ÀË·Ñ¿Õ¼ä
+				//delete[]_str;  //èµ‹å€¼æå‰æŠŠæ—§ç©ºé—´é‡Šæ”¾ï¼Œé˜²æ­¢æµªè´¹ç©ºé—´
 				//_str = new char[s._capacity + 1];
 				//strcpy(_str, s._str);
 				//_size = s._size;
@@ -191,17 +191,17 @@ namespace phw
 			return _str + _size;
 		}
 
-		//»ñÈ¡×Ö·û´®
+		//è·å–å­—ç¬¦ä¸²
 		const char* c_str()
 		{
 			return _str;
 		}
-		//[]Í¨¹ıÏÂ±êÀ´·ÃÎÊ×Ö·û
+		//[]é€šè¿‡ä¸‹æ ‡æ¥è®¿é—®å­—ç¬¦
 		char& operator[](size_t pos)
 		{
 			return _str[pos];
 		}
-		//·ÃÎÊconstÀàĞÍµÄÊı×é
+		//è®¿é—®constç±»å‹çš„æ•°ç»„
 		const char& operator[](size_t pos) const
 		{
 			return _str[pos];
@@ -231,21 +231,21 @@ namespace phw
 				cout << s._str[i] << " ";
 			}
 			cout << endl;
-			//ÕâÀï²»Ö§³Ö·¶Î§forÁË£¬ÎªÊ²Ã´£¿  ÒòÎªÕâÀïsÊÇconst¶ÔÏó£¬Ö»ÄÜµ÷ÓÃconstµü´úÆ÷
+			//è¿™é‡Œä¸æ”¯æŒèŒƒå›´foräº†ï¼Œä¸ºä»€ä¹ˆï¼Ÿ  å› ä¸ºè¿™é‡Œsæ˜¯constå¯¹è±¡ï¼Œåªèƒ½è°ƒç”¨constè¿­ä»£å™¨
 			string::const_iterator it = s.begin();
 			while (it != s.end())
 			{
-				//(*it)++;  //err. constµü´úÆ÷Ö¸ÏòµÄÄÚÈİ²»ÄÜĞŞ¸Ä
+				//(*it)++;  //err. constè¿­ä»£å™¨æŒ‡å‘çš„å†…å®¹ä¸èƒ½ä¿®æ”¹
 				it++;
 			}
-			//ÕâÀïÃ»ÓĞ¶¨Òåconstµü´úÆ÷£¬¾Í»á±¨´í£¬·¶Î§forµÄµ×²ã¾ÍÊÇµü´úÆ÷
+			//è¿™é‡Œæ²¡æœ‰å®šä¹‰constè¿­ä»£å™¨ï¼Œå°±ä¼šæŠ¥é”™ï¼ŒèŒƒå›´forçš„åº•å±‚å°±æ˜¯è¿­ä»£å™¨
 			for (auto ch : s)
 			{
 				cout << ch << " ";
 			}
 			cout << endl;
 		}
-		// ²»ĞŞ¸Ä³ÉÔ±±äÁ¿Êı¾İµÄº¯Êı£¬×îºÃ¼ÓÉÏconst
+		// ä¸ä¿®æ”¹æˆå‘˜å˜é‡æ•°æ®çš„å‡½æ•°ï¼Œæœ€å¥½åŠ ä¸Šconst
 		bool operator>(const string& s) const
 		{
 			return strcmp(_str, s._str) > 0;
@@ -271,14 +271,14 @@ namespace phw
 			return !(*this > s);
 		}
 
-		//À©ÈİµÄÊ±ºò£¬²¢ÇÒ³õÊ¼»¯ 
+		//æ‰©å®¹çš„æ—¶å€™ï¼Œå¹¶ä¸”åˆå§‹åŒ– 
 		void resize(size_t n, char ch = '\0')
 		{
-			//µ±nĞ¡ÓÚ_sizeµÄÊ±ºò£¬²»ĞèÒªÀ©Èİ£¬Ò²²»ĞèÒªËõÈİ
-			//n´óÓÚ_sizeµÄÊ±ºò£¬²¢ÇÒµ±n>capacitµÄÊ±ºòĞèÒªÀ©Èİ£¬¾ÍÖ±½Óµ÷ÓÃreserve
+			//å½“nå°äº_sizeçš„æ—¶å€™ï¼Œä¸éœ€è¦æ‰©å®¹ï¼Œä¹Ÿä¸éœ€è¦ç¼©å®¹
+			//nå¤§äº_sizeçš„æ—¶å€™ï¼Œå¹¶ä¸”å½“n>capacitçš„æ—¶å€™éœ€è¦æ‰©å®¹ï¼Œå°±ç›´æ¥è°ƒç”¨reserve
 			if (n < _size)
 			{
-				//±£ÁôÇ°n¸ö
+				//ä¿ç•™å‰nä¸ª
 				_size = n;
 				_str[_size] = '\0';
 			}
@@ -288,7 +288,7 @@ namespace phw
 				{
 					reserve(n);
 				}
-				//´Ó_size¿ªÊ¼ µ½ĞèÒªÀ©Èİn¿ªÊ¼£¬³õÊ¼»¯\0
+				//ä»_sizeå¼€å§‹ åˆ°éœ€è¦æ‰©å®¹nå¼€å§‹ï¼Œåˆå§‹åŒ–\0
 				size_t i = _size;
 				while (i < n)
 				{
@@ -300,7 +300,7 @@ namespace phw
 			}
 		}
 
-		//À©Èİn
+		//æ‰©å®¹n
 		void reserve(size_t n)
 		{
 			if (n > _capacity)
@@ -324,7 +324,7 @@ namespace phw
 			_str[_size] = '\0';
 		}
 
-		//Î²²å×Ö·û´®
+		//å°¾æ’å­—ç¬¦ä¸²
 		void append(const char* str)
 		{
 			size_t len = strlen(str);
@@ -332,8 +332,8 @@ namespace phw
 			{
 				reserve(_size + len);
 			}
-			strcpy(_str + _size, str);  //´Ó_str+_size¿ªÊ¼¿½±´
-			//strcat(_str, str);     //strcat»áÕÒ\0£¬Ğ§ÂÊµÍÏÂ
+			strcpy(_str + _size, str);  //ä»_str+_sizeå¼€å§‹æ‹·è´
+			//strcat(_str, str);     //strcatä¼šæ‰¾\0ï¼Œæ•ˆç‡ä½ä¸‹
 			_size += len;
 			_str[_size] = '\0';
 		}
@@ -358,9 +358,9 @@ namespace phw
 				reserve(2 * _capacity);
 			}
 			int end = _size;
-			//ÕâÀïµÄposĞèÒª¸Ä³Éint posÊÇÎŞ·ûºÅÀàĞÍ£¬ºÍend¶Ô±È£¬end»á×ª»»³ÉÎŞ·ûºÅÀàĞÍ
-			//µ±posµÄÎ»ÖÃÊÇ0Ê±£¬endÎªÎŞ·ûºÅÀàĞÍ½«ÓÀÔ¶²»»áĞ¡ÓÚ0£¬³ÌĞòÎŞÏŞÑ­»·¡£
-			//ĞèÒª½«pos×ª»»³Éint£¬ÄÇÃ´end¾ÍÎªintÀàĞÍ
+			//è¿™é‡Œçš„poséœ€è¦æ”¹æˆint posæ˜¯æ— ç¬¦å·ç±»å‹ï¼Œå’Œendå¯¹æ¯”ï¼Œendä¼šè½¬æ¢æˆæ— ç¬¦å·ç±»å‹
+			//å½“posçš„ä½ç½®æ˜¯0æ—¶ï¼Œendä¸ºæ— ç¬¦å·ç±»å‹å°†æ°¸è¿œä¸ä¼šå°äº0ï¼Œç¨‹åºæ— é™å¾ªç¯ã€‚
+			//éœ€è¦å°†posè½¬æ¢æˆintï¼Œé‚£ä¹ˆendå°±ä¸ºintç±»å‹
 			while (end >= (int)pos)
 			{
 				_str[end + 1] = _str[end];
@@ -394,8 +394,8 @@ namespace phw
 
 		string& erase(size_t pos, size_t len = npos)
 		{
-			//Èç¹ûÒªÉ¾µÄ¸öÊıÔ¶³¬ÓÚÊ£ÓàµÄ¸öÊı£¬¾ÍÊÇposÎ»ÖÃºóÃæÈ«²¿É¾³ı£¬Ö±½ÓÔÚposÎ»ÖÃºóÃæÖÃ\0¼´¿É
-			// len == npos±ØĞë¼ÓÉÏ£¬nposÊÇ×î´óÖµ
+			//å¦‚æœè¦åˆ çš„ä¸ªæ•°è¿œè¶…äºå‰©ä½™çš„ä¸ªæ•°ï¼Œå°±æ˜¯posä½ç½®åé¢å…¨éƒ¨åˆ é™¤ï¼Œç›´æ¥åœ¨posä½ç½®åé¢ç½®\0å³å¯
+			// len == nposå¿…é¡»åŠ ä¸Šï¼Œnposæ˜¯æœ€å¤§å€¼
 			if (len == npos || pos + len >= _size)
 			{
 				_str[pos] = '\0';
@@ -456,8 +456,8 @@ namespace phw
 		size_t _size;
 		size_t _capacity;
 
-		static const size_t npos;  //¾²Ì¬³ÉÔ±±äÁ¿²»ÄÜ¸øÈ±Ê¡Öµ£¬
-		//static const size_t npos = -1;  //¼ÓÉÏconst¿ÉÒÔ£¬Ö»Õë¶ÔÕûĞÍ
+		static const size_t npos;  //é™æ€æˆå‘˜å˜é‡ä¸èƒ½ç»™ç¼ºçœå€¼ï¼Œ
+		//static const size_t npos = -1;  //åŠ ä¸Šconstå¯ä»¥ï¼Œåªé’ˆå¯¹æ•´å‹
 
 		//static const size_t N = 10;
 		//int _a[N];
@@ -477,13 +477,13 @@ ostream& phw::operator<<(ostream& out, const phw::string& s)
 
 istream& phw::operator>>(istream& in, phw::string& s)
 {
-	s.clear();  //Ò»¿ªÊ¼¾ÍÇåÀí»º³åÇø
+	s.clear();  //ä¸€å¼€å§‹å°±æ¸…ç†ç¼“å†²åŒº
 	char ch = in.get();
 	char buff[128];
 	size_t i = 0;
 	while (ch != ' ' && ch != '\n')
 	{
-		//s += ch;  //×Ö·û´®Ì«³¤¿ÉÄÜ»áÈİÁ¿²»¹»,ÓÃreserveÈçºÎ¿ØÖÆÀ©Èİ£¿ À©Èİ»áÆµ·±µ÷ÓÃ
+		//s += ch;  //å­—ç¬¦ä¸²å¤ªé•¿å¯èƒ½ä¼šå®¹é‡ä¸å¤Ÿ,ç”¨reserveå¦‚ä½•æ§åˆ¶æ‰©å®¹ï¼Ÿ æ‰©å®¹ä¼šé¢‘ç¹è°ƒç”¨
 		buff[i++] = ch;
 		if (i == 127)
 		{
@@ -499,7 +499,7 @@ istream& phw::operator>>(istream& in, phw::string& s)
 		buff[i] = '\0';
 		s += buff;
 	}
-	//getlineÊµÏÖ
+	//getlineå®ç°
 	/*while (ch != '\n')
 	{
 		s += ch;
@@ -521,11 +521,11 @@ void test_string2()
 {
 	phw::string s1;
 	phw::string s2("hello world");
-	phw::string s3(s2);   //±àÒëÆ÷Ä¬ÈÏµÄ¹¹Ôìº¯Êı£¬Ç³¿½±´,s2ºÍs3µÄstrÖ¸ÏòÁËÍ¬Ò»¸ö¿Õ¼ä£¬Îö¹¹»á³öÎÊÌâ
+	phw::string s3(s2);   //ç¼–è¯‘å™¨é»˜è®¤çš„æ„é€ å‡½æ•°ï¼Œæµ…æ‹·è´,s2å’Œs3çš„stræŒ‡å‘äº†åŒä¸€ä¸ªç©ºé—´ï¼Œææ„ä¼šå‡ºé—®é¢˜
 	cout << s2.c_str() << endl;   //hello world
 	cout << s3.c_str() << endl;   //hello world
 
-	//²»×Ô¼ºĞ´¿½±´¹¹Ôì½á¹ûÊÇs2±ä£¬s3¸ú×Å±ä£¬ÒòÎªs2ºÍs3Ö¸ÏòÍ¬Ò»¸ö¿Õ¼ä
+	//ä¸è‡ªå·±å†™æ‹·è´æ„é€ ç»“æœæ˜¯s2å˜ï¼Œs3è·Ÿç€å˜ï¼Œå› ä¸ºs2å’Œs3æŒ‡å‘åŒä¸€ä¸ªç©ºé—´
 	//s2[0]++;
 	//cout << s2.c_str() << endl;   //iello world
 	//cout << s3.c_str() << endl;   //iello world
@@ -534,13 +534,13 @@ void test_string2()
 	cout << s2.c_str() << endl;   //iello world
 	cout << s3.c_str() << endl;   //hello world
 
-	s1 = s3;  //×Ô¼º²»Ğ´»¹ÊÇ»á±¨´í£¬ÒòÎª»¹ÊÇÇ³¿½±´
+	s1 = s3;  //è‡ªå·±ä¸å†™è¿˜æ˜¯ä¼šæŠ¥é”™ï¼Œå› ä¸ºè¿˜æ˜¯æµ…æ‹·è´
 	cout << s1.c_str() << endl;   //hello world
 	cout << s3.c_str() << endl;   //hello world
 	s1 = s1;
 }
 
-//±éÀú×Ö·û´®
+//éå†å­—ç¬¦ä¸²
 void test_string3()
 {
 	phw::string s1("Hello World");
@@ -572,14 +572,14 @@ void test_string3()
 	}
 	cout << endl;
 
-	for (auto ch : s1)  //µ×²ã¾ÍÊÇ½«*itÌæ»»³Éch
+	for (auto ch : s1)  //åº•å±‚å°±æ˜¯å°†*itæ›¿æ¢æˆch
 	{
 		cout << ch << " ";
 	}
 	cout << endl;
 }
 
-//string±È½Ï´óĞ¡
+//stringæ¯”è¾ƒå¤§å°
 void test_string4()
 {
 	phw::string s1("hello world");
@@ -613,7 +613,7 @@ void test_string5()
 	cout << s2.c_str() << endl;
 }
 
-//Á÷²åÈëÖØÔØ±ØĞëÊµÏÖ³ÉÓÑÔªº¯Êı£¿  ²»¶Ô
+//æµæ’å…¥é‡è½½å¿…é¡»å®ç°æˆå‹å…ƒå‡½æ•°ï¼Ÿ  ä¸å¯¹
 void test_string6()
 {
 	std::string s1("0123456789");
@@ -623,7 +623,7 @@ void test_string6()
 	s1 += "xxxx";
 	s2 += "xxxx";
 	cout << s1 << endl;   //0123456789xxxx
-	cout << s2.c_str() << endl;  //0123456789  Óöµ½\0ÖÕÖ¹
+	cout << s2.c_str() << endl;  //0123456789  é‡åˆ°\0ç»ˆæ­¢
 	cout << s2 << endl;   //0123456789xxxxs
 	
 	phw::string s3;
@@ -644,6 +644,6 @@ void test_string7()
 	cout << sizeof(s1) << endl;  //12
 	cout << sizeof(s2) << endl;  //28
 
-	//g++ ÖĞx86  4×Ö½Ú   x64  8×Ö½Ú
-	//g++ÖĞ´æµÄÊÇÖ¸Õë
+	//g++ ä¸­x86  4å­—èŠ‚   x64  8å­—èŠ‚
+	//g++ä¸­å­˜çš„æ˜¯æŒ‡é’ˆ
 }
