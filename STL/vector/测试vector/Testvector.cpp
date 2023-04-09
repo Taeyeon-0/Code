@@ -40,24 +40,24 @@ void test_vector1()
 
 void test_vector2()
 {
-	vector<int> v1(10, 1);   //10¸ö1
+	vector<int> v1(10, 1);   //10ï¿½ï¿½1
 	for (auto e : v1)
 	{
 		cout << e << " ";
 	}
 	cout << endl;
 
-	vector<int>v2(v1.begin(), v1.end());  //µü´úÆ÷Çø¼ä¹¹Ôì
+	vector<int>v2(v1.begin(), v1.end());  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¹¹ï¿½ï¿½
 	for (auto e : v2)
 	{
 		cout << e << " ";
 	}
 	cout << endl;
 
-	//µü´úÆ÷Çø¼äµ×²ãÊÇÄ£°å£¬Ò²¿ÉÒÔ´«±ðµÄÀàÐÍ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½Ä£ï¿½å£¬Ò²ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	string s1("hello world");
 	vector<int> v3(s1.begin(), s1.end());
-	//vector<int> v3(++s1.begin(), --s1.end());   //´«Ò»²¿·Öµü´úÆ÷
+	//vector<int> v3(++s1.begin(), --s1.end());   //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
 	for (auto e : v3)
 	{
 		cout << e << " ";
@@ -65,7 +65,7 @@ void test_vector2()
 	cout << endl;
 }
 
-//µü´úÆ÷
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void test_vector3()
 {
 	vector<int>v;
@@ -81,9 +81,9 @@ void test_vector3()
 		it++;
 	}
 	cout << endl;
-	//·´Ïòµü´úÆ÷
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	vector<int>::reverse_iterator rit = v.rbegin();
-	//auto rit = v.rbegin();   //×Ô¶¯Ê¶±ðµü´úÆ÷ÀàÐÍ
+	//auto rit = v.rbegin();   //ï¿½Ô¶ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	while (rit != v.rend())
 	{
 		cout << *rit << " ";
@@ -91,7 +91,7 @@ void test_vector3()
 	}
 	cout << endl;
 
-	cout << v.max_size() << endl;    //max_size Ã»ÓÐ¼ÛÖµ
+	cout << v.max_size() << endl;    //max_size Ã»ï¿½Ð¼ï¿½Öµ
 }
 
 
@@ -102,7 +102,7 @@ void TestVectorExpand()
 	const size_t n = 1000000;
 
 	size_t begin = clock();
-	v.reserve(n);  //²âÊÔÌáÇ°À©ÈÝºÍ²»À©ÈÝµÄËÙ¶È
+	v.reserve(n);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ÝºÍ²ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ù¶ï¿½
 	sz = v.capacity();
 	cout << "making v grow:\n";
 	for (int i = 0; i < n; ++i)
@@ -115,28 +115,28 @@ void TestVectorExpand()
 		}
 	}
 	size_t end = clock();
-	cout << "²âÊÔ½á¹û£º" << end - begin << endl;
+	cout << "ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½" << end - begin << endl;
 }
 
 
 void test_vector5()
 {
 	vector<int> v1;
-	v1.resize(10, 0);  //¿ª¿Õ¼ä+³õÊ¼»¯,C++¿ª¿Õ¼ä·Ç³£·½±ã£¬ÍÆ¼öÊ¹ÓÃÕâÖÖ·½Ê½
+	v1.resize(10, 0);  //ï¿½ï¿½ï¿½Õ¼ï¿½+ï¿½ï¿½Ê¼ï¿½ï¿½,C++ï¿½ï¿½ï¿½Õ¼ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½Æ¼ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½Ê½
 
-	vector<int> v2(10, 0);  //ÕâÒ²¿ÉÒÔ £¬¹¹Ôì¿ª¿Õ¼ä£¬²»ÍÆ¼ö£¬ÓÐÐ©Çé¿ö²»ÊÊÓÃ
+	vector<int> v2(10, 0);  //ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ì¿ªï¿½Õ¼ä£¬ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 void test_vector6()
 {
-	//vectorÃ»ÓÐfind£¬findÊ¹ÓÃstd::ÀïµÄ£¬std::µÄfind³öÁËstringÊÊÓÃÈÎºÎÀàÐÍ
+	//vectorÃ»ï¿½ï¿½findï¿½ï¿½findÊ¹ï¿½ï¿½std::ï¿½ï¿½Ä£ï¿½std::ï¿½ï¿½findï¿½ï¿½ï¿½ï¿½stringï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½
 	vector<int> v;
 	v.push_back(1);
 	v.push_back(2);
 	v.push_back(3);
 	v.push_back(4);
 	v.push_back(5);
-	//Ê¹ÓÃfindÕÒÖµÎª2µÄÎ»ÖÃ£¬vector²åÈëÉ¾³ý£¬Ê¹ÓÃµÄÊÇµü´úÆ÷£¬posÎªµü´úÆ÷ÀàÐÍ
+	//Ê¹ï¿½ï¿½findï¿½ï¿½ÖµÎª2ï¿½ï¿½Î»ï¿½Ã£ï¿½vectorï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½posÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	vector<int>::iterator pos = find(v.begin(), v.end(), 2);
 	if (pos != v.end())
@@ -150,7 +150,7 @@ void test_vector6()
 	}
 	cout << endl;
 
-	pos = find(v.begin(), v.end(), 20);  //µ÷ÓÃeraseÖ®Ç°±ØÐëÔÙ´Î¶¨Î»pos£¬·ñÔò»á±¨´í£¬µü´úÆ÷posÖ®Ç°²åÈëºó£¬¾ÍÊ§Ð§ÁË£¬ÐèÒªÖØÐÂ¶¨Î»
+	pos = find(v.begin(), v.end(), 20);  //ï¿½ï¿½ï¿½ï¿½eraseÖ®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ù´Î¶ï¿½Î»posï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á±¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½posÖ®Ç°ï¿½ï¿½ï¿½ï¿½ó£¬¾ï¿½Ê§Ð§ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Â¶ï¿½Î»
 	if (pos != v.end())
 	{
 		v.erase(pos);
@@ -161,11 +161,11 @@ void test_vector6()
 		cout << e << " ";  //1 2 3 4 5
 	}
 	cout << endl;
-	//vector²»½¨ÒéÓÃinsertºÍerase£¬Ë³Ðò±í²åÈëÉ¾³ýÐ§ÂÊºÜµÍ
+	//vectorï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½insertï¿½ï¿½eraseï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½Ð§ï¿½ÊºÜµï¿½
 }
 
-//vector<char> ¿ÉÒÔ´úÌæstringÂð£¿
-//vector<char> Ã»ÓÐ\0£¬²»¼æÈÝCÓïÑÔµÄ×Ö·û´®£¬vector±È½Ï´óÐ¡ºÍstringÒ²²»Ò»Ñù¡£string×Ö·û´®µÄÐèÇóºÍvector²»Í¬£¬ËùÒÔ±ØÐë·Ö¿ªÉè¼Æ
+//vector<char> ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½stringï¿½ï¿½
+//vector<char> Ã»ï¿½ï¿½\0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ôµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½vectorï¿½È½Ï´ï¿½Ð¡ï¿½ï¿½stringÒ²ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½stringï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vectorï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½
 
 int main()
 {
