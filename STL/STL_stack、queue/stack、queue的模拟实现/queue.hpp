@@ -1,9 +1,10 @@
+#pragma once
 #include<deque>
 
 namespace phw //防止命名冲突
 {
 	template<class T, class Container = std::deque<T>>
-	class queues
+	class queue
 	{
 	public:
 		//队尾入队列
