@@ -2,6 +2,7 @@
 #include <vector>
 #include <list>
 #include <stack>
+
 using namespace std;
 
 int main()
@@ -11,6 +12,7 @@ int main()
     {
         cout << e << " "; // 1 2 3 4 5
     }
+    
     cout << endl;
     // 定义一个int类型的栈，默认底层容器是deque(双端队列)
     stack<int> st;
