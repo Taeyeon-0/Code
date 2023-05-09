@@ -16,11 +16,29 @@ namespace phw
 		};
 
 	public:
-		bool insert(const K& key)
+		//typename告诉编译器iterator是一个类型，而不是一个成员变量
+		typedef typename RBTree<K,K,SetKeyOfT>::iterator iterator;
+
+		iterator begin()
+		{
+			return _t.begin();
+		}
+
+		iterator end()
+		{
+			return _t.end();
+		}
+
+		bool Insert(const K& key)
 		{
 			return _t.Insert(key);
 		}
+
+		void InOrder()
+		{
+			_t.InOrder();
+		}
 	private:
-		RBTree<K, K, SetKeyOfT> _t;
+		RBTree<K, K, SetKeyOfT> _t;   //封装的红黑树
 	};
 }

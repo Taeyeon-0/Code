@@ -27,8 +27,54 @@ struct RBTreeNode
 	}
 };
 
-//仿函数，用于pair的比较
+//迭代器
+template<class T, class Ref, class Ptr>
+struct __RBTreeIterator
+{
+	typedef RBTreeNode<T> Node;
+	typedef __RBTreeIterator<T, Ref, Ptr> Self;
 
+	Node* _node;   //成员变量
+
+	__RBTreeIterator(Node* node)
+	:_node(node)
+	{}
+
+
+	Ref operator*()
+	{
+		return _node->_data;
+	}
+
+	Ptr operator->()
+	{
+		return &_node->_data;
+	}
+
+	bool operator!=(const Self& s)
+	{
+		return _node != s._node;
+	}
+
+	Self& operator++()
+	{
+		if (_node->_right)
+		{
+			// 1、右不为空，下一个就是右子树的最左节点
+			Node* subLeft = _node->_right;
+			while (subLeft->_left)
+			{
+				subLeft = subLeft->_left;
+			}
+
+			_node = subLeft;
+		}
+
+		return *this;
+	}
+};
+
+//仿函数，用于pair的比较
 template<class K, class T, class KeyOfT>
 class RBTree
 {
@@ -40,7 +86,25 @@ public:
 		Destroy(this->_root);
 		this->_root = nullptr;
 	}
+public:  //迭代器相关
+	typedef __RBTreeIterator<T,T&,T*> iterator;
+	typedef __RBTreeIterator<T,const T&,const T*> const_iterator;
+	//迭代器最开始应该是树的最左边(中序)
+	iterator begin()
+	{
+		Node* cur = this->_root;
+		while(cur&&cur->_left)
+		{
+			cur = cur->_left;
+		}
 
+		return iterator(cur);
+	}
+
+	iterator end()
+	{
+		return iterator(nullptr);
+	}
 public:
 	Node* find(const T& data)
 	{
