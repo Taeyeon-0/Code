@@ -10,19 +10,22 @@ namespace phw
 		//用于比较方式
 		struct MapKeyOfT
 		{
-			const pair<const K, V>& operator()(const pair<const K, V>& key)
+			const K& operator()(const pair<const K, V>& key)
 			{
-				return key;
+				return key.first;
 			}
 		};
 
 	public:
-		bool insert(const pair<const K, V>& kv)
+		bool Insert(const pair<const K, V>& kv)
 		{
 			return _t.Insert(kv);
 		}
 
-
+		void InOrder()
+		{
+			_t.InOrder();
+		}
 	private:
 		RBTree<K, pair<const K, V>, MapKeyOfT> _t;
 	};

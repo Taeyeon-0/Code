@@ -29,7 +29,7 @@ struct RBTreeNode
 
 //仿函数，用于pair的比较
 
-template<class K, class T,class KeyOfT>
+template<class K, class T, class KeyOfT>
 class RBTree
 {
 	typedef RBTreeNode<T> Node;
@@ -204,7 +204,7 @@ public:
 
 	void InOrder()
 	{
-		InOrder(this->_root);
+		_InOrder(this->_root);
 	}
 
 	bool IsBalance()
@@ -284,16 +284,17 @@ private:
 		return check(root->_left, BlackNum, benchmark) && check(root->_right, BlackNum, benchmark);
 	}
 
-	void InOrder(Node* root)
+	void _InOrder(Node* root)
 	{
 		if (root == nullptr)
 		{
 			return;
 		}
 
-		InOrder(root->_left);
-		cout << root->_kv.first << " ";
-		InOrder(root->_right);
+		KeyOfT kot;
+		_InOrder(root->_left);
+		cout << kot(root->_data) << " ";
+		_InOrder(root->_right);
 	}
 
 	// 左单旋

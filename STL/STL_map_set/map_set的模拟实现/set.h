@@ -21,6 +21,6 @@ namespace phw
 			return _t.Insert(key);
 		}
 	private:
-		RBTree<K, K,SetKeyOfT> _t;
+		RBTree<K, K, SetKeyOfT> _t;
 	};
 }
