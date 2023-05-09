@@ -11,26 +11,28 @@ enum Colour
 	BLACK,
 };
 
-template<class K, class V>
+template<class T>
 struct RBTreeNode
 {
-	RBTreeNode<K, V>* _left;
-	RBTreeNode<K, V>* _right;
-	RBTreeNode<K, V>* _parent;
-	pair<K, V> _kv;
+	RBTreeNode<T>* _left;
+	RBTreeNode<T>* _right;
+	RBTreeNode<T>* _parent;
+	T _data;
 	Colour _col;
 	//在单参数构造函数中使用 explicit 关键字是一种好的编程习惯，可以提高代码的可读性和健壮性。
 	//加上 explicit 关键字，以避免出现不必要的隐式类型转换。如果没有加上 explicit 关键字，那么可以使用该构造函数创建一个 RBTreeNode 对象时，会发生隐式类型转换，将一个 pair<K, V> 类型的对象转换为 RBTreeNode 对象，这可能导致程序行为出现意外的结果。
-	explicit RBTreeNode(const pair<K, V>& kv)
-		: _left(nullptr), _right(nullptr), _parent(nullptr), _kv(kv), _col(RED)
+	explicit RBTreeNode(const T& data)
+		: _left(nullptr), _right(nullptr), _parent(nullptr), _data(data), _col(RED)
 	{
 	}
 };
 
-template<class K, class V>
+//仿函数，用于pair的比较
+
+template<class K, class T,class KeyOfT>
 class RBTree
 {
-	typedef RBTreeNode<K, V> Node;
+	typedef RBTreeNode<T> Node;
 public:
 	//析构函数
 	~RBTree()
@@ -40,16 +42,17 @@ public:
 	}
 
 public:
-	Node* find(const K& key)
+	Node* find(const T& data)
 	{
 		Node* cur = this->_root;
-		while(cur)
+		KeyOfT kot;
+		while (cur)
 		{
-			if(key>cur->_kv.first)
+			if (kot(data) > kot(cur->_data))
 			{
 				cur = cur->_right;
 			}
-			else if(key<cur->_kv.first)
+			else if (kot(data) < kot(cur->_data))
 			{
 				cur = cur->_left;
 			}
@@ -61,25 +64,26 @@ public:
 		return nullptr;
 	}
 
-	bool Insert(const pair<K, V>& kv)
+	bool Insert(const T& data)
 	{
 		if (_root == nullptr)
 		{
-			_root = new Node(kv);
+			_root = new Node(data);
 			_root->_col = BLACK;
 			return true;
 		}
 
+		KeyOfT kot;  //用于map和set的比较方式，KeyOft在上层传值，一个是key，一个是pair
 		Node* parent = nullptr;
 		Node* cur = _root;
 		while (cur)
 		{
-			if (kv.first > cur->_kv.first)
+			if (kot(data) > kot(cur->_data))
 			{
 				parent = cur;
 				cur = cur->_right;
 			}
-			else if (kv.first < cur->_kv.first)
+			else if (kot(data) < kot(cur->_data))
 			{
 				parent = cur;
 				cur = cur->_left;
@@ -91,9 +95,9 @@ public:
 			}
 		}
 		// cur走到了合适的位置
-		cur = new Node(kv);
+		cur = new Node(data);
 		// 选择插入到parent的左边还是右边
-		if (kv.first < parent->_kv.first)
+		if (kot(cur->_data) < kot(parent->_data))
 		{
 			parent->_left = cur;
 		}
@@ -230,7 +234,7 @@ public:
 private:
 	void Destroy(Node* root)
 	{
-		if(root== nullptr)
+		if (root == nullptr)
 		{
 			return;
 		}
