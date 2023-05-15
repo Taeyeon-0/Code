@@ -1,54 +1,54 @@
 #pragma once
 template <class T>
-struct list_node;   //ÉùÃ÷Íâ²¿Àà£¬
-// listµü´úÆ÷
+struct list_node;   //å£°æ˜å¤–éƒ¨ç±»ï¼Œ
+// listè¿­ä»£å™¨
 template <class T, class Ref, class Ptr>
 struct list_iterator
 {
-	typedef list_node<T> node;					 // Á´±í
-	typedef list_iterator<T, Ref, Ptr> iterator; // µü´úÆ÷
-	node* _node;								 // µü´úÆ÷ÀïÎ¨Ò»µÄ³ÉÔ±±äÁ¿:Á´±íÖ¸Õë
-	// µü´úÆ÷Ä¬ÈÏ¹¹Ôìº¯Êı£¬´«µÄÊÇµü´úÆ÷Á´±íÖ¸Õë
+	typedef list_node<T> node;					 // é“¾è¡¨
+	typedef list_iterator<T, Ref, Ptr> iterator; // è¿­ä»£å™¨
+	node* _node;								 // è¿­ä»£å™¨é‡Œå”¯ä¸€çš„æˆå‘˜å˜é‡:é“¾è¡¨æŒ‡é’ˆ
+	// è¿­ä»£å™¨é»˜è®¤æ„é€ å‡½æ•°ï¼Œä¼ çš„æ˜¯è¿­ä»£å™¨é“¾è¡¨æŒ‡é’ˆ
 	list_iterator(node* n)
 		: _node(n)
 	{
 	}
 
-	// ½âÒıÓÃ - ·µ»ØµÄÊÇÁ´±íµÄÖµ  RefÍ¨¹ı´«²Î£¬TºÍconst T ÓÃÀ´¿ØÖÆconstÀàĞÍºÍ·ÇconstÀàĞÍ
+	// è§£å¼•ç”¨ - è¿”å›çš„æ˜¯é“¾è¡¨çš„å€¼  Refé€šè¿‡ä¼ å‚ï¼ŒTå’Œconst T ç”¨æ¥æ§åˆ¶constç±»å‹å’Œéconstç±»å‹
 	Ref operator*()
 	{
 		return _node->data;
 	}
 
-	//-> ·µ»ØµÄÊÇÁ´±ídataµÄµØÖ·   PtrÍ¨¹ı´«²Î£¬TºÍconst T ÓÃÀ´¿ØÖÆconstÀàĞÍºÍ·ÇconstÀàĞÍ
+	//-> è¿”å›çš„æ˜¯é“¾è¡¨dataçš„åœ°å€   Ptré€šè¿‡ä¼ å‚ï¼ŒTå’Œconst T ç”¨æ¥æ§åˆ¶constç±»å‹å’Œéconstç±»å‹
 	Ptr operator->()
 	{
 		return &_node->data;
 	}
 
-	// Ç°ÖÃ++ ÏÈ++£¬ÔÚ·µ»Ø×Ô¼º
+	// å‰ç½®++ å…ˆ++ï¼Œåœ¨è¿”å›è‡ªå·±
 	iterator& operator++()
 	{
 		_node = _node->next;
 		return *this;
 	}
 
-	// ºóÖÃ++  ÏÈ·µ»Ø ÔÚ++
+	// åç½®++  å…ˆè¿”å› åœ¨++
 	iterator operator++(int)
 	{
-		iterator tmp = *this; // ×¢Òâ£ºÁÙÊ±±äÁ¿£¬²»ÄÜÒıÓÃ·µ»Ø
+		iterator tmp = *this; // æ³¨æ„ï¼šä¸´æ—¶å˜é‡ï¼Œä¸èƒ½å¼•ç”¨è¿”å›
 		_node = _node->next;
-		return tmp; // tmpÊÇÒ»¸öÀà£¬²»ÊÇÒıÓÃ·µ»Ø£¬·µ»ØµÄÊ±ºò»á´´½¨Ò»¸öÁÙÊ±Àà
+		return tmp; // tmpæ˜¯ä¸€ä¸ªç±»ï¼Œä¸æ˜¯å¼•ç”¨è¿”å›ï¼Œè¿”å›çš„æ—¶å€™ä¼šåˆ›å»ºä¸€ä¸ªä¸´æ—¶ç±»
 	}
 
-	// Ç°ÖÃ-- ÏÈ--£¬ÔÚ·µ»Ø×Ô¼º
+	// å‰ç½®-- å…ˆ--ï¼Œåœ¨è¿”å›è‡ªå·±
 	iterator& operator--()
 	{
 		_node = _node->prev;
 		return *this;
 	}
 
-	// ºó-- ÔÚ·µ»Ø£¬ÔÚ--
+	// å-- åœ¨è¿”å›ï¼Œåœ¨--
 	iterator operator--(int)
 	{
 		iterator tmp = *this;
@@ -56,12 +56,12 @@ struct list_iterator
 		return tmp;
 	}
 
-	// posµØÖ·++
+	// posåœ°å€++
 	iterator& operator+(int x)
 	{
 		while (x--)
 		{
-			//*this±íÊ¾µü´úÆ÷ÀïµÄÖ¸Õë£¬++¸´ÓÃÇ°ÃæµÄÖØÔØ£¬±íÊ¾Ö¸Õë++
+			//*thisè¡¨ç¤ºè¿­ä»£å™¨é‡Œçš„æŒ‡é’ˆï¼Œ++å¤ç”¨å‰é¢çš„é‡è½½ï¼Œè¡¨ç¤ºæŒ‡é’ˆ++
 			*this = ++ * this;
 		}
 		return *this;
@@ -76,18 +76,18 @@ struct list_iterator
 		return *this;
 	}
 
-	// this->_node ²»µÈÓÚ²ÎÊı_node
+	// this->_node ä¸ç­‰äºå‚æ•°_node
 	bool operator!=(const iterator& it)
 	{
 		return _node != it._node;
 	}
 };
 
-//·´Ïòµü´úÆ÷
+//åå‘è¿­ä»£å™¨
 template<class iterator,class Ref,class Ptr>
 struct STL_reverse_iterator
 {	
-	iterator cur;  //ÕıÏòµü´úÆ÷
+	iterator cur;  //æ­£å‘è¿­ä»£å™¨
 	typedef STL_reverse_iterator<iterator, Ref, Ptr> reverse_iterator;
 	STL_reverse_iterator(iterator it)
 		:cur(it)
@@ -95,7 +95,7 @@ struct STL_reverse_iterator
 
 	Ref operator*()
 	{
-		return *cur;  //¶ÔÕıÏòµü´úÆ÷½âÒıÓÃ£¬¾ÍÊÇ·µ»Ønode->data 
+		return *cur;  //å¯¹æ­£å‘è¿­ä»£å™¨è§£å¼•ç”¨ï¼Œå°±æ˜¯è¿”å›node->data 
 	}
 
 	reverse_iterator operator++()
@@ -116,54 +116,54 @@ struct STL_reverse_iterator
 	}
 };
 
-// ·´Ïòµü´úÆ÷  - ²»ÍÆ¼ö
+// åå‘è¿­ä»£å™¨  - ä¸æ¨è
 //template <class T, class Ref, class Ptr>
 //struct list_reverse_iterator
 //{
-//	typedef list_node<T> node;					 // Á´±í
-//	typedef list_reverse_iterator<T, Ref, Ptr> reverse_iterator; // µü´úÆ÷
-//	node* _node;								 // µü´úÆ÷ÀïÎ¨Ò»µÄ³ÉÔ±±äÁ¿:Á´±íÖ¸Õë
-//	// µü´úÆ÷Ä¬ÈÏ¹¹Ôìº¯Êı£¬´«µÄÊÇµü´úÆ÷Á´±íÖ¸Õë
+//	typedef list_node<T> node;					 // é“¾è¡¨
+//	typedef list_reverse_iterator<T, Ref, Ptr> reverse_iterator; // è¿­ä»£å™¨
+//	node* _node;								 // è¿­ä»£å™¨é‡Œå”¯ä¸€çš„æˆå‘˜å˜é‡:é“¾è¡¨æŒ‡é’ˆ
+//	// è¿­ä»£å™¨é»˜è®¤æ„é€ å‡½æ•°ï¼Œä¼ çš„æ˜¯è¿­ä»£å™¨é“¾è¡¨æŒ‡é’ˆ
 //	list_reverse_iterator(node* n)
 //		: _node(n)
 //	{
 //	}
 //
-//	// ½âÒıÓÃ - ·µ»ØµÄÊÇÁ´±íµÄÖµ  RefÍ¨¹ı´«²Î£¬TºÍconst T ÓÃÀ´¿ØÖÆconstÀàĞÍºÍ·ÇconstÀàĞÍ
+//	// è§£å¼•ç”¨ - è¿”å›çš„æ˜¯é“¾è¡¨çš„å€¼  Refé€šè¿‡ä¼ å‚ï¼ŒTå’Œconst T ç”¨æ¥æ§åˆ¶constç±»å‹å’Œéconstç±»å‹
 //	Ref operator*()
 //	{
 //		return _node->data;
 //	}
 //
-//	//-> ·µ»ØµÄÊÇÁ´±ídataµÄµØÖ·   PtrÍ¨¹ı´«²Î£¬TºÍconst T ÓÃÀ´¿ØÖÆconstÀàĞÍºÍ·ÇconstÀàĞÍ
+//	//-> è¿”å›çš„æ˜¯é“¾è¡¨dataçš„åœ°å€   Ptré€šè¿‡ä¼ å‚ï¼ŒTå’Œconst T ç”¨æ¥æ§åˆ¶constç±»å‹å’Œéconstç±»å‹
 //	Ptr operator->()
 //	{
 //		return &_node->data;
 //	}
 //
-//	// Ç°ÖÃ++ ÏÈ++£¬ÔÚ·µ»Ø×Ô¼º
+//	// å‰ç½®++ å…ˆ++ï¼Œåœ¨è¿”å›è‡ªå·±
 //	reverse_iterator& operator++()
 //	{
 //		_node = _node->prev;
 //		return *this;
 //	}
 //
-//	// ºóÖÃ++  ÏÈ·µ»Ø ÔÚ++
+//	// åç½®++  å…ˆè¿”å› åœ¨++
 //	reverse_iterator operator++(int)
 //	{
-//		reverse_iterator tmp = *this; // ×¢Òâ£ºÁÙÊ±±äÁ¿£¬²»ÄÜÒıÓÃ·µ»Ø
+//		reverse_iterator tmp = *this; // æ³¨æ„ï¼šä¸´æ—¶å˜é‡ï¼Œä¸èƒ½å¼•ç”¨è¿”å›
 //		_node = _node->prev;
-//		return tmp; // tmpÊÇÒ»¸öÀà£¬²»ÊÇÒıÓÃ·µ»Ø£¬·µ»ØµÄÊ±ºò»á´´½¨Ò»¸öÁÙÊ±Àà
+//		return tmp; // tmpæ˜¯ä¸€ä¸ªç±»ï¼Œä¸æ˜¯å¼•ç”¨è¿”å›ï¼Œè¿”å›çš„æ—¶å€™ä¼šåˆ›å»ºä¸€ä¸ªä¸´æ—¶ç±»
 //	}
 //
-//	// Ç°ÖÃ-- ÏÈ--£¬ÔÚ·µ»Ø×Ô¼º
+//	// å‰ç½®-- å…ˆ--ï¼Œåœ¨è¿”å›è‡ªå·±
 //	reverse_iterator& operator--()
 //	{
 //		_node = _node->next;
 //		return *this;
 //	}
 //
-//	// ºó-- ÔÚ·µ»Ø£¬ÔÚ--
+//	// å-- åœ¨è¿”å›ï¼Œåœ¨--
 //	reverse_iterator operator--(int)
 //	{
 //		reverse_iterator tmp = *this;
@@ -171,12 +171,12 @@ struct STL_reverse_iterator
 //		return tmp;
 //	}
 //
-//	// posµØÖ·++
+//	// posåœ°å€++
 //	reverse_iterator& operator+(int x)
 //	{
 //		while (x--)
 //		{
-//			//*this±íÊ¾µü´úÆ÷ÀïµÄÖ¸Õë£¬++¸´ÓÃÇ°ÃæµÄÖØÔØ£¬±íÊ¾Ö¸Õë++
+//			//*thisè¡¨ç¤ºè¿­ä»£å™¨é‡Œçš„æŒ‡é’ˆï¼Œ++å¤ç”¨å‰é¢çš„é‡è½½ï¼Œè¡¨ç¤ºæŒ‡é’ˆ++
 //			*this = -- * this;
 //		}
 //		return *this;
@@ -191,7 +191,7 @@ struct STL_reverse_iterator
 //		return *this;
 //	}
 //
-//	// this->_node ²»µÈÓÚ²ÎÊı_node
+//	// this->_node ä¸ç­‰äºå‚æ•°_node
 //	bool operator!=(const reverse_iterator& it)
 //	{
 //		return _node != it._node;

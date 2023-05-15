@@ -3,11 +3,11 @@
 
 void print_list(const list<int>& lt)
 {
-	//´òÓ¡º¯Êı£¬Ò»°ã²»ĞèÒª¸Ä±äÖµ£¬ÄÇÃ´ÎÒÃÇ¾ÍĞèÒªÊ¹ÓÃconstµü´úÆ÷
-	list<int>::const_iterator it = lt.begin(); // ĞèÒªÔÚÀàÖĞÖØÔØÒ»¸öconstº¯Êı
+	//æ‰“å°å‡½æ•°ï¼Œä¸€èˆ¬ä¸éœ€è¦æ”¹å˜å€¼ï¼Œé‚£ä¹ˆæˆ‘ä»¬å°±éœ€è¦ä½¿ç”¨constè¿­ä»£å™¨
+	list<int>::const_iterator it = lt.begin(); // éœ€è¦åœ¨ç±»ä¸­é‡è½½ä¸€ä¸ªconstå‡½æ•°
 	while (it != lt.end())
 	{
-		//(*it) *= 2;  //ÕâÀïconst beginº¯Êı£¬ÎŞ·¨ĞŞ¸Ä
+		//(*it) *= 2;  //è¿™é‡Œconst beginå‡½æ•°ï¼Œæ— æ³•ä¿®æ”¹
 		cout << *it << " ";
 		it++;
 	}
@@ -22,8 +22,8 @@ void test1()
 	lt.push_back(2);
 	lt.push_back(3);
 	lt.push_back(4);
-	list<int>::iterator it = lt.begin(); // µ÷ÓÃ¿½±´¹¹Ôì£¬Ä¬ÈÏµÄÇ³¿½±´£¬
-	//ÕâÀïÇ³¿½±´Ã»ÓĞÎÊÌâ,ÒòÎªµü´úÆ÷Ã»ÓĞÎö¹¹
+	list<int>::iterator it = lt.begin(); // è°ƒç”¨æ‹·è´æ„é€ ï¼Œé»˜è®¤çš„æµ…æ‹·è´ï¼Œ
+	//è¿™é‡Œæµ…æ‹·è´æ²¡æœ‰é—®é¢˜,å› ä¸ºè¿­ä»£å™¨æ²¡æœ‰ææ„
 	while (it != lt.end())
 	{
 		cout << *it << " "; // 1 2 3 4
@@ -42,14 +42,14 @@ void test1()
 
 void test2()
 {
-	// constÔÚ¶¨ÒåµÄÊ±ºòÊÇÃ»ÓĞconstµÄÊôĞÔµÄ£¬²»È»ÔÚ¶¨ÒåµÄÊ±ºò¾ÍÎŞ·¨³õÊ¼»¯ÁË
+	// conståœ¨å®šä¹‰çš„æ—¶å€™æ˜¯æ²¡æœ‰constçš„å±æ€§çš„ï¼Œä¸ç„¶åœ¨å®šä¹‰çš„æ—¶å€™å°±æ— æ³•åˆå§‹åŒ–äº†
 	const list<int> lt1;
 	list<int> lt;
 	lt.push_back(1);
 	lt.push_back(2);
 	lt.push_back(3);
 	lt.push_back(4);
-	// list<int>::iterator pos = find(lt.begin(), lt.end(), 3);  //#include<algorithm>,ÕâÀï¿âÀïµÄ¿ÉÒÔÊµÏÖ²éÕÒ
+	// list<int>::iterator pos = find(lt.begin(), lt.end(), 3);  //#include<algorithm>,è¿™é‡Œåº“é‡Œçš„å¯ä»¥å®ç°æŸ¥æ‰¾
 	list<int>::iterator pos = lt.begin();
 
 	lt.insert(pos + 2 - 2, 666);
@@ -87,11 +87,11 @@ struct AA
 	}
 };
 
-//×Ô¶¨ÒåÀàĞÍµÄlist  ->Ä£Äâ 
+//è‡ªå®šä¹‰ç±»å‹çš„list  ->æ¨¡æ‹Ÿ 
 
 void test3()
 {
-	list<AA> lt;   //listÀïnodeµÄdataÊÇ×Ô¶¨ÒåÀàĞÍ  T data
+	list<AA> lt;   //listé‡Œnodeçš„dataæ˜¯è‡ªå®šä¹‰ç±»å‹  T data
 	lt.push_back(AA(1, 1));
 	lt.push_back(AA(2, 2));
 	lt.push_back(AA(3, 3));
@@ -100,13 +100,13 @@ void test3()
 	while (it != lt.end())
 	{
 		//cout << (*it)._a1 << " " << (*it)._a2 << endl;  //*it = _node->data   ._a1 = AA data.a1
-		cout << it->_a1 << " " << it->_a2 << endl;     //it·µ»ØµÄÊÇ&_node->data  ¶ÔdataµØÖ·-> ¾ÍÊÇdata.a1	
+		cout << it->_a1 << " " << it->_a2 << endl;     //itè¿”å›çš„æ˜¯&_node->data  å¯¹dataåœ°å€-> å°±æ˜¯data.a1	
 		it++;
 	}
 
 }
 
-//¿½±´¹¹Ôì
+//æ‹·è´æ„é€ 
 void test4()
 {
 	list<int> lt;
@@ -139,7 +139,7 @@ void test4()
 	cout << endl;
 }
 
-//·´Ïòµü´úÆ÷
+//åå‘è¿­ä»£å™¨
 void test5()
 {
 	list<int> lt;
