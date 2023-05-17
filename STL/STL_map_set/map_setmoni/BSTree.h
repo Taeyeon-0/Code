@@ -37,7 +37,7 @@ struct __RBTreeIterator
 	Node* _node;   //成员变量
 
 	__RBTreeIterator(Node* node)
-	:_node(node)
+		:_node(node)
 	{}
 
 
@@ -69,10 +69,56 @@ struct __RBTreeIterator
 
 			_node = subLeft;
 		}
+		else
+		{
+			//2、右为空，沿着到根的路径，找孩子是父亲左的那个祖先
+			Node* cur = _node;
+			Node* parent = cur->_parent;
+			//如果parent不为NULL，或者cur是parent的右子树
+			while(parent && cur==parent->_right)
+			{
+				//继续走
+				cur = parent;
+				parent = parent->_parent;
+			}
+			_node = parent;   //下一个节点就是parent
+		}
+		return *this;
+	}
 
+	//反向 右子树 根 左子树
+	Self& operator--()
+	{
+		//++找左子树，--找右子树
+		if(_node->_left)
+		{
+			//1、左不为空，找左子树的最右节点
+			Node* subRight = _node->_left;
+			while (subRight->_right)
+			{
+				subRight = subRight->_right;
+			}
+			_node = subRight;
+		}
+		else
+		{
+			//2、左为空，找孩子是父亲右的祖先
+			Node* cur = _node;
+			Node* parent = cur->_parent;
+			//如果parent！=null ，cur==parent的左就继续走
+			while(parent && cur == parent->_left)
+			{
+				cur = parent;
+				parent = parent->_parent;
+			}
+			_node = parent;
+		}
 		return *this;
 	}
 };
+
+
+
 
 //仿函数，用于pair的比较
 template<class K, class T, class KeyOfT>

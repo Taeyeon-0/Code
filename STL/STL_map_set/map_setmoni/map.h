@@ -17,6 +17,18 @@ namespace phw
 		};
 
 	public:
+		typedef typename RBTree<K, pair<const K, V>, MapKeyOfT>::iterator iterator;
+
+		iterator begin()
+		{
+			return _t.begin();
+		}
+
+		iterator end()
+		{
+			return _t.end();
+		}
+
 		bool Insert(const pair<const K, V>& kv)
 		{
 			return _t.Insert(kv);
