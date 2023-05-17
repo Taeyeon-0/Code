@@ -32,10 +32,10 @@ struct mapTest
 	static void mapTest3()
 	{
 		phw::map<string, string> dict{};
-		dict.Insert(make_pair("sort", "ÅÅĞò"));
-		dict.Insert(make_pair("string", "×Ö·û´®"));
-		dict.Insert(make_pair("count", "¼ÆÊı"));
-		dict.Insert(make_pair("string", "(×Ö·û´®)"));  //ÖØ¸´²»²åÈë
+		dict.Insert(make_pair("sort", "æ’åº"));
+		dict.Insert(make_pair("string", "å­—ç¬¦ä¸²"));
+		dict.Insert(make_pair("count", "è®¡æ•°"));
+		dict.Insert(make_pair("string", "(å­—ç¬¦ä¸²)"));  //é‡å¤ä¸æ’å…¥
 
 		phw::map<string, string>::iterator it = dict.begin();
 		while (it != dict.end())
@@ -45,7 +45,7 @@ struct mapTest
 		}
 		cout << endl;
 
-		//·¶Î§for
+		//èŒƒå›´for
 		for (auto& e : dict)
 		{
 			cout << e.first << ":" << e.second << endl;
@@ -95,7 +95,7 @@ struct setTest
 		t.InOrder();
 	}
 
-	//µü´úÆ÷²âÊÔ
+	//è¿­ä»£å™¨æµ‹è¯•
 	static void setTest4()
 	{
 		int a[] = { 16, 3, 7, 11, 9, 26, 18, 14, 15 };
@@ -129,7 +129,7 @@ struct setTest
 			t.Insert(e);
 		}
 
-		phw::set<int>::iterator it = t.begin();  //endÎªnullptr
+		phw::set<int>::iterator it = t.begin();  //endä¸ºnullptr
 		for (int i = 0; i < 4; i++)
 		{
 			++it;
