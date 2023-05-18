@@ -40,12 +40,13 @@ struct __RBTreeIterator
 		:_node(node)
 	{}
 
-
+	//Ref为引用
 	Ref operator*()
 	{
 		return _node->_data;
 	}
 
+	//Ptr指针
 	Ptr operator->()
 	{
 		return &_node->_data;
@@ -75,7 +76,7 @@ struct __RBTreeIterator
 			Node* cur = _node;
 			Node* parent = cur->_parent;
 			//如果parent不为NULL，或者cur是parent的右子树
-			while(parent && cur==parent->_right)
+			while (parent && cur == parent->_right)
 			{
 				//继续走
 				cur = parent;
@@ -90,7 +91,7 @@ struct __RBTreeIterator
 	Self& operator--()
 	{
 		//++找左子树，--找右子树
-		if(_node->_left)
+		if (_node->_left)
 		{
 			//1、左不为空，找左子树的最右节点
 			Node* subRight = _node->_left;
@@ -106,7 +107,7 @@ struct __RBTreeIterator
 			Node* cur = _node;
 			Node* parent = cur->_parent;
 			//如果parent！=null ，cur==parent的左就继续走
-			while(parent && cur == parent->_left)
+			while (parent && cur == parent->_left)
 			{
 				cur = parent;
 				parent = parent->_parent;
@@ -116,8 +117,6 @@ struct __RBTreeIterator
 		return *this;
 	}
 };
-
-
 
 
 //仿函数，用于pair的比较
@@ -133,13 +132,13 @@ public:
 		this->_root = nullptr;
 	}
 public:  //迭代器相关
-	typedef __RBTreeIterator<T,T&,T*> iterator;
-	typedef __RBTreeIterator<T,const T&,const T*> const_iterator;
+	typedef __RBTreeIterator<T, T&, T*> iterator;
+	typedef __RBTreeIterator<T, const T&, const T*> const_iterator;
 	//迭代器最开始应该是树的最左边(中序)
 	iterator begin()
 	{
 		Node* cur = this->_root;
-		while(cur&&cur->_left)
+		while (cur && cur->_left)
 		{
 			cur = cur->_left;
 		}
@@ -174,14 +173,15 @@ public:
 		return nullptr;
 	}
 
-	bool Insert(const T& data)
+	pair<iterator,bool> Insert(const T& data)
 	{
 		if (_root == nullptr)
 		{
 			_root = new Node(data);
 			_root->_col = BLACK;
-			return true;
+			return make_pair(iterator(_root),true);
 		}
+
 
 		KeyOfT kot;  //用于map和set的比较方式，KeyOft在上层传值，一个是key，一个是pair
 		Node* parent = nullptr;
@@ -201,13 +201,14 @@ public:
 			else
 			{
 				// 相等则不插入
-				return false;
+				return make_pair(iterator(cur),false);
 			}
 		}
 		// cur走到了合适的位置
 		cur = new Node(data);
+		Node* newnode = cur;    //用于返回插入节点
 		// 选择插入到parent的左边还是右边
-		if (kot(cur->_data) < kot(parent->_data))
+		if (kot(data) < kot(parent->_data))
 		{
 			parent->_left = cur;
 		}
@@ -309,7 +310,7 @@ public:
 		}
 		//最后的根变为黑节点
 		_root->_col = BLACK;
-		return true;
+		return make_pair(iterator(newnode), true);
 	}
 
 	void InOrder()

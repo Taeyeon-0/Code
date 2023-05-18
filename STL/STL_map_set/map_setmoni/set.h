@@ -17,7 +17,7 @@ namespace phw
 
 	public:
 		//typename告诉编译器iterator是一个类型，而不是一个成员变量
-		typedef typename RBTree<K,K,SetKeyOfT>::iterator iterator;
+		typedef typename RBTree<K, K, SetKeyOfT>::iterator iterator;
 
 		iterator begin()
 		{
@@ -29,7 +29,7 @@ namespace phw
 			return _t.end();
 		}
 
-		bool Insert(const K& key)
+		pair<iterator,bool> Insert(const K& key)
 		{
 			return _t.Insert(key);
 		}

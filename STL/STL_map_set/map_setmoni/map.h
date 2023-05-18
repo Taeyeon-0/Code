@@ -29,7 +29,13 @@ namespace phw
 			return _t.end();
 		}
 
-		bool Insert(const pair<const K, V>& kv)
+		V& operator[](const K& key)
+		{
+			pair<iterator,bool> ret = _t.Insert(make_pair(key, V()));
+			return ret.first->second;  //first是迭代器
+		}
+
+		pair<iterator,bool> Insert(const pair<const K, V>& kv)
 		{
 			return _t.Insert(kv);
 		}

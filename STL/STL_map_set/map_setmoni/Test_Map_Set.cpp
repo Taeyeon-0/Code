@@ -1,6 +1,6 @@
 #include"map.h"
 #include"set.h"
-#include<time.h>
+#include<ctime>
 #include<cstdlib>
 #include<utility>
 using namespace std;
@@ -50,7 +50,21 @@ struct mapTest
 		{
 			cout << e.first << ":" << e.second << endl;
 		}
+	}
 
+	static void mapTest4()
+	{
+		string arr[] = { "西瓜","西瓜","苹果","西瓜","苹果","苹果","西瓜","苹果","香蕉","苹果","香蕉","梨" };
+		phw::map<string, int> countMap;
+		for (auto& e : arr)
+		{
+			countMap[e]++;
+		}
+
+		for (auto& kv : countMap)
+		{
+			cout << kv.first << "" << kv.second << endl;
+		}
 	}
 };
 
@@ -81,6 +95,7 @@ struct setTest
 		}
 		cout << endl;
 	}
+
 
 	static void setTest3()
 	{
@@ -148,7 +163,7 @@ struct setTest
 int main()
 {
 	mapTest map_test;
-	mapTest::mapTest3();
+	mapTest::mapTest4();
 
 	//setTest set_test;
 	//setTest::setTest5();
