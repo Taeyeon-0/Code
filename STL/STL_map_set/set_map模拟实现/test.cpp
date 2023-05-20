@@ -164,10 +164,7 @@ struct setTest
 
 int main()
 {
-	mapTest map_test;
 	mapTest::mapTest4();
-
-	//setTest set_test;
 	//setTest::setTest5();
 	return 0;
 }
