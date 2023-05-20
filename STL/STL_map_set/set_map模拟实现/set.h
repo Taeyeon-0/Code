@@ -1,6 +1,4 @@
-#pragma once
-
-#include"BSTree.h"
+#include"RBTree.h"
 namespace phw
 {
 	template<class K>
@@ -36,9 +34,9 @@ namespace phw
 
 		void InOrder()
 		{
-			_t.InOrder();
+			//_t.InOrder();
 		}
 	private:
-		RBTree<K, K, SetKeyOfT> _t;   //封装的红黑树
+		RBTree<K, K, SetKeyOfT> _t;   //封装的红黑树 ，第二个K是没用的，为的是匹配map
 	};
 }

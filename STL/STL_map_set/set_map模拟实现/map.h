@@ -1,6 +1,7 @@
 #pragma once
+#include"RBTree.h"
 
-#include"BSTree.h"
+
 
 namespace phw
 {
@@ -37,15 +38,16 @@ namespace phw
 
 		pair<iterator,bool> Insert(const pair<const K, V>& kv)
 		{
+
 			return _t.Insert(kv);
 		}
 
 		void InOrder()
 		{
-			_t.InOrder();
+			//_t.InOrder();
 		}
 	private:
-		RBTree<K, pair<const K, V>, MapKeyOfT> _t;
+		RBTree<K, pair<const K, V>, MapKeyOfT> _t;  //const K 控制k不可修改 传给模板T
 	};
 }
 

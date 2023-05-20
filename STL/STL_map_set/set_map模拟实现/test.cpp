@@ -3,6 +3,8 @@
 #include<ctime>
 #include<cstdlib>
 #include<utility>
+#include<string>
+#include<iostream>
 using namespace std;
 
 struct mapTest
