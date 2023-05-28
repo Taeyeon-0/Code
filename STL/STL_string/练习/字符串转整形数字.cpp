@@ -12,38 +12,28 @@
 复制
 返回值：0
 */
-
-class Solution
-{
+#include <string>
+using namespace std;
+class Solution {
 public:
-    int StrToInt(string str)
-    {
-        long long sum = 0; // 用来存储值
-        int sign = 1;      // sign默认值为正数
+    int StrToInt(string str) {
+        long long sum = 0;// 用来存储值
+        int sign = 1;     // sign默认值为正数
         // 遍历字符串找数字
-        for (int i = 0; i < str.size(); i++)
-        {
-            if (str[i] ==' ')
-            {
+        for (int i = 0; i < str.size(); i++) {
+            if (str[i] == ' ') {
                 continue;
             }
-            if (str[i] == '-')
-            {
+            if (str[i] == '-') {
                 // 字符串为负数，将sign设置为-1
                 sign = -1;
-            }
-            else if (str[i] == '+')
-            {
+            } else if (str[i] == '+') {
                 // 正数也要处理，因为要判断是否为合法数字,如果不判断，进else，return 0了
                 sign = 1;
-            }
-            else if (str[i] >= '0' && str[i] <= '9')
-            {
+            } else if (str[i] >= '0' && str[i] <= '9') {
                 // 每次遇到一个数字就×10，在加上当前数字，第一次sum为0，直接加str[i];
                 sum = sum * 10 + (str[i] - '0');
-            }
-            else
-            {
+            } else {
                 return 0;
             }
         }

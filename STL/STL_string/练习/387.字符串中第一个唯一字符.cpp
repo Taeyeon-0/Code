@@ -12,16 +12,15 @@
 示例 3:
 输入: s = "aabb"
 输出: -1 */
+#include<string>
+using namespace std;
 
-class Solution
-{
+class Solution {
 public:
-    int firstUniqChar(string s)
-    {
+    int firstUniqChar(string s) {
         //分别对字符串进行正序查询和反序查询
         //如果所查询的字符下标相等，说明此字符只出现了一次
-        for (int i = 0; i < s.size(); i++)
-        {
+        for (int i = 0; i < s.size(); i++) {
             int index = s.find(s[i]);
             int reverse_index = s.rfind(s[i]);
             if (index == reverse_index)

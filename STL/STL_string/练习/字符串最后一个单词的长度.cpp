@@ -12,13 +12,12 @@
 #include <string>
 using namespace std;
 
-int main()
-{
-	string s1;
-	getline(cin, s1);
-	int pos = s1.rfind(" ");
-	cout << s1.size() - pos - 1 << endl;
-	return 0;
+int main() {
+    string s1;
+    getline(cin, s1);
+    int pos = s1.rfind(" ");
+    cout << s1.size() - pos - 1 << endl;
+    return 0;
 }
 
 //https://www.nowcoder.com/practice/8c949ea5f36f422594b306a2300315da?tpId=37&&tqId=21224&rp=5&ru=/activity/oj&qru=/ta/huawei/question-ranking

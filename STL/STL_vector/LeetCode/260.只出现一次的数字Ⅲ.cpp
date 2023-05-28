@@ -15,29 +15,23 @@
 输出：[1,0]
 */
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
-class Solution
-{
+class Solution {
 public:
-    vector<int> singleNumber(vector<int> &nums)
-    {
+    vector<int> singleNumber(vector<int> &nums) {
         vector<int> ret;
         // 1.排序
         sort(nums.begin(), nums.end());
         // 2.循环判断找相邻两个不相等的值，然后尾插到临时的vector中
-        for (int i = 0; i < nums.size(); i++)
-        {
-            if ((i + 1) < nums.size() && nums[i] == nums[i + 1])
-            {
+        for (int i = 0; i < nums.size(); i++) {
+            if ((i + 1) < nums.size() && nums[i] == nums[i + 1]) {
                 i++;
                 continue;
-            }
-            else
-            {
+            } else {
                 ret.push_back(nums[i]);
             }
         }

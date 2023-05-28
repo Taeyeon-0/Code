@@ -1,9 +1,8 @@
-#include "stack.hpp"
 #include "queue.hpp"
+#include "stack.hpp"
 #include <iostream>
 using namespace std;
-int main()
-{
+int main() {
     phw::queue<int> q;
 
     q.push(1);
@@ -11,8 +10,7 @@ int main()
     q.push(3);
     q.push(4);
     q.push(5);
-    while (!q.empty())
-    {
+    while (!q.empty()) {
         cout << q.front() << " ";
         q.pop();
     }
@@ -24,8 +22,7 @@ int main()
     st.push(3);
     st.push(4);
     st.push(5);
-    while (!st.empty())
-    {
+    while (!st.empty()) {
         cout << st.top() << " ";
         st.pop();
     }

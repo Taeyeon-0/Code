@@ -3,32 +3,25 @@ using namespace std;
 
 int day_in_month[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-bool is_leap_year(int year)
-{
+bool is_leap_year(int year) {
     return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
 }
 
-int main()
-{
+int main() {
     int year, day_of_year;
-    while (cin >> year >> day_of_year)
-    {
+    while (cin >> year >> day_of_year) {
         // 判断是否为闰年，从而决定2月的天数
-        if (is_leap_year(year))
-        {
+        if (is_leap_year(year)) {
             day_in_month[2] = 29;
-        }
-        else
-        {
+        } else {
             day_in_month[2] = 28;
         }
 
         int month = 1;
         int sum = 0;
         sum += day_in_month[1];
-        
-        while (day_of_year > sum)
-        {
+
+        while (day_of_year > sum) {
             month++;
             sum += day_in_month[month];
         }

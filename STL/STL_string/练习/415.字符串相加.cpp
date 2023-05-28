@@ -13,24 +13,21 @@
 示例 3：
 输入：num1 = "0", num2 = "0"
 输出："0" */
-#include <string>
 #include <iostream>
-using namespcae std;
+#include <string>
+using namespace std;
 
-class Solution
-{
+class Solution {
 public:
-    string addStrings(string num1, string num2)
-    {
+    string addStrings(string num1, string num2) {
         // 记录end1，end2位置
         int end1 = num1.size() - 1, end2 = num2.size() - 1;
-        int next = 0; // 进位值
+        int next = 0;// 进位值
         string strRet;
         // 提前开空间，防止扩容影响效率
         strRet.reserve(num1.size() > num2.size() ? num1.size() + 1 : num2.size() + 1);
         // 同时遍历两个字符串，遍历完两个停止
-        while (end1 >= 0 || end2 >= 0)
-        {
+        while (end1 >= 0 || end2 >= 0) {
             // 记录val1的值，end1>=0 因为可能end1会越界，因为两个字符串不是同一长度
             int val1 = end1 >= 0 ? num1[end1] - '0' : 0;
             int val2 = end2 >= 0 ? num2[end2] - '0' : 0;
@@ -38,11 +35,11 @@ public:
             // 重置next进位值和ret个位值
             next = ret / 10;
             ret = ret % 10;
-            strRet += ('0' + ret);   //strRet +=
+            strRet += ('0' + ret);//strRet +=
             end1--;
             end2--;
         }
-        if (next == 1)   //如果最后next==1，说明需要进位，那么再追加字符串
+        if (next == 1)//如果最后next==1，说明需要进位，那么再追加字符串
             strRet += '1';
 
         //反转字符串后，即得出字符串相加
@@ -51,4 +48,3 @@ public:
     }
 };
 // https://leetcode.cn/problems/add-strings/
-

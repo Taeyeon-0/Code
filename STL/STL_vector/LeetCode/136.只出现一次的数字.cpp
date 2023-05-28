@@ -1,19 +1,16 @@
 // 给你一个非空整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 // 异或，相同的数异或得0  0异或任何数都为任何数   异或没有顺序条件限制
 // 思路：将nums中的数组的数逐次异或，最后得到的数就是只出现一次的数字
-class Solution
-{
+class Solution {
 public:
-    int singleNumber(vector<int> &nums)
-    {
+    int singleNumber(vector<int> &nums) {
         int ret = nums[0];
-        for (int i = 1; i < nums.size(); i++)
-        {
+        for (int i = 1; i < nums.size(); i++) {
             ret ^= nums[i];
         }
         return ret;

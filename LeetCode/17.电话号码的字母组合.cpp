@@ -1,44 +1,39 @@
-// ¸ø¶¨Ò»¸ö½ö°üº¬Êı×Ö2-9µÄ×Ö·û´®£¬·µ»ØËùÓĞËüÄÜ±íÊ¾µÄ×ÖÄ¸×éºÏ¡£´ğ°¸¿ÉÒÔ°´ÈÎÒâË³Ğò·µ»Ø¡£
+// ç»™å®šä¸€ä¸ªä»…åŒ…å«æ•°å­—2-9çš„å­—ç¬¦ä¸²ï¼Œè¿”å›æ‰€æœ‰å®ƒèƒ½è¡¨ç¤ºçš„å­—æ¯ç»„åˆã€‚ç­”æ¡ˆå¯ä»¥æŒ‰ä»»æ„é¡ºåºè¿”å›ã€‚
 // 2 - abc   3 - def  4 - ghi  5 - jkl  6 - mno  7 - pqrs  8 - tuv  9 - wxyz
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
-class Solution
-{
-    // ½«Êı×Ö¶ÔÓ¦µÄµç»°ºÅÂëĞ´ÈëÊı×éÖĞ
+class Solution {
+    // å°†æ•°å­—å¯¹åº”çš„ç”µè¯å·ç å†™å…¥æ•°ç»„ä¸­
     string _numTostr[10] = {"", "", "abc", "def", "ghi", "jki", "mno", "pqrs", "tuv", "wxyz"};
+
 public:
-//digitsÊÇÔ­Êı×Ö´®£¬diÎªµİ¹é²ãÊı£¬Ò²¾ÍÊÇÊı×Ö´®µÄµÚ¼¸Î»
-//combineStrÊÇÒ»¿ªÊ¼ÓÉ¿Õ´®+=µİ¹éµÄ´®ËùµÃ£¬×÷ÓÃÊÇÎ²²åµ½strVÖĞ
-    void Combinations(const string &digits, size_t di, string combineStr, vector<string> &strV)
-    {
-        //µ±diµÈÓÚdigitsÊı×Ö×Ö·ûµÄ´óĞ¡£¬ËµÃ÷Ê÷ÒÑ¾­×ßµ½µ×ÁË£¬¿ÉÒÔÎ²²å×Ö·û´®µ½strvÖĞÁË£¬È»ºó·µ»Ø£¬¼ÌĞøµİ¹é
-        if (di == digits.size())
-        {
+    //digitsæ˜¯åŸæ•°å­—ä¸²ï¼Œdiä¸ºé€’å½’å±‚æ•°ï¼Œä¹Ÿå°±æ˜¯æ•°å­—ä¸²çš„ç¬¬å‡ ä½
+    //combineStræ˜¯ä¸€å¼€å§‹ç”±ç©ºä¸²+=é€’å½’çš„ä¸²æ‰€å¾—ï¼Œä½œç”¨æ˜¯å°¾æ’åˆ°strVä¸­
+    void Combinations(const string &digits, size_t di, string combineStr, vector<string> &strV) {
+        //å½“diç­‰äºdigitsæ•°å­—å­—ç¬¦çš„å¤§å°ï¼Œè¯´æ˜æ ‘å·²ç»èµ°åˆ°åº•äº†ï¼Œå¯ä»¥å°¾æ’å­—ç¬¦ä¸²åˆ°strvä¸­äº†ï¼Œç„¶åè¿”å›ï¼Œç»§ç»­é€’å½’
+        if (di == digits.size()) {
             strV.push_back(combineStr);
             return;
         }
-        // Ê×ÏÈ£¬»ñÈ¡Êı×Ö£¬Êı×Ö´æ·ÅÔÚdigitsÖĞ£¬ÓÃdi-'0'»ñÈ¡×Ö·û´®digitsÀïµÄÊı×Ö×Ö·û
+        // é¦–å…ˆï¼Œè·å–æ•°å­—ï¼Œæ•°å­—å­˜æ”¾åœ¨digitsä¸­ï¼Œç”¨di-'0'è·å–å­—ç¬¦ä¸²digitsé‡Œçš„æ•°å­—å­—ç¬¦
         int num = digits[di] - '0';
-        // È¡µ±Ç°²ãµÄstr´®,numÊÇ¼¸£¬¾ÍÈ¡_numTostr¶ÔÓ¦ÏÂ±êµÄ´®
+        // å–å½“å‰å±‚çš„strä¸²,numæ˜¯å‡ ï¼Œå°±å–_numTostrå¯¹åº”ä¸‹æ ‡çš„ä¸²
         string str = _numTostr[num];
-        //¿ªÊ¼Ñ­»·µİ¹é´®£¬µÚÒ»²ãÓĞ¼¸¸ö×Ö·û£¬¾ÍÑ­»·¼¸´Î
-        for (auto ch : str)
-        {
+        //å¼€å§‹å¾ªç¯é€’å½’ä¸²ï¼Œç¬¬ä¸€å±‚æœ‰å‡ ä¸ªå­—ç¬¦ï¼Œå°±å¾ªç¯å‡ æ¬¡
+        for (auto ch: str) {
             Combinations(digits, di + 1, combineStr + ch, strV);
         }
     }
-    vector<string> letterCombinations(string digits)
-    {
-        //strVÊÇ·µ»Ø´®£¬ÓÃÀ´·µ»Ø½á¹û
+    vector<string> letterCombinations(string digits) {
+        //strVæ˜¯è¿”å›ä¸²ï¼Œç”¨æ¥è¿”å›ç»“æœ
         vector<string> strV;
-        //Èç¹ûdigits±¾ÉíÎª¿Õ£¬ÄÇÃ´¾ÍÖ±½Ó·µ»ØstrV£¬·ñÔò»ápush_backÒ»¸ö¿ÕÖµ
-        if (digits == "")
-        {
+        //å¦‚æœdigitsæœ¬èº«ä¸ºç©ºï¼Œé‚£ä¹ˆå°±ç›´æ¥è¿”å›strVï¼Œå¦åˆ™ä¼špush_backä¸€ä¸ªç©ºå€¼
+        if (digits == "") {
             return strV;
         }
-        //µİ¹éº¯Êı
+        //é€’å½’å‡½æ•°
         Combinations(digits, 0, "", strV);
         return strV;
     }

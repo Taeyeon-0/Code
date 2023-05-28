@@ -15,20 +15,17 @@
 输入：digits = "2"
 输出：["a","b","c"]
 */
-#include <vector>
 #include <string>
+#include <vector>
 using namespace std;
 
-class Solution
-{
+class Solution {
 public:
     // 将对应的字符串保存在字符串数组中
     vector<string> _strToNum{"", "", "abc", "def", "ghi", "jki", "mno", "pqrs", "tuv", "wxyz"};
 
-    void Combantions(string &digits, int di, string comstr, vector<string> &strV)
-    {
-        if (di == digits.size())
-        {
+    void Combantions(string &digits, int di, string comstr, vector<string> &strV) {
+        if (di == digits.size()) {
             strV.push_back(comstr);
             return;
         }
@@ -36,16 +33,14 @@ public:
         // 将digits数字字符串转换成数字
         int num = digits[di] - '0';
         // num_str 就是数字对应的字符串
-        string num_str = _strToNum[num]; // abc
+        string num_str = _strToNum[num];// abc
 
-        for (int i = 0; i < num_str.size(); i++)
-        {
+        for (int i = 0; i < num_str.size(); i++) {
             // 递归num_str 也就是a  b  c  这里需要画一个递归展开图,a递归过去，然后递归bef,递归三次,返回回去 在b开始递归
-            Combantions(digits, di + 1, comstr + num_str[i], strV); // comstr  a
+            Combantions(digits, di + 1, comstr + num_str[i], strV);// comstr  a
         }
     }
-    vector<string> letterCombinations(string digits)
-    {
+    vector<string> letterCombinations(string digits) {
         vector<string> strV;
         // 如果digits是个空串，直接返回strV
         if (digits == "")

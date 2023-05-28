@@ -4,25 +4,21 @@
 #include <vector>
 using namespace std;
 
-class Solution
-{
+class Solution {
 public:
-    vector<vector<int>> generate(int numRows) // 返回值为二维数组，vector<vector<int>>
+    vector<vector<int>> generate(int numRows)// 返回值为二维数组，vector<vector<int>>
     {
-        vector<vector<int>> vv(numRows); // 创建一个vector由numsRows行初始化
+        vector<vector<int>> vv(numRows);// 创建一个vector由numsRows行初始化
 
-        for (int i = 0; i < numRows; i++)
-        {
+        for (int i = 0; i < numRows; i++) {
             // 将杨辉三角形初始化为1,每行递增1
             vv[i].resize(i + 1, 1);
         }
 
         // 开始生成杨辉三角形,从第三行开始，第一行第二行都为1
 
-        for (int i = 2; i < numRows; i++)
-        {
-            for (int j = 1; j < i; j++)
-            {
+        for (int i = 2; i < numRows; i++) {
+            for (int j = 1; j < i; j++) {
                 vv[i][j] = vv[i - 1][j] + vv[i - 1][j - 1];
             }
         }

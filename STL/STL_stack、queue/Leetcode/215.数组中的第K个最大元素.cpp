@@ -1,5 +1,5 @@
-#include<vector>
-#include<queue>
+#include <queue>
+#include <vector>
 using namespace std;
 /* 
 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
@@ -16,15 +16,13 @@ using namespace std;
 
 class Solution {
 public:
-    int findKthLargest(vector<int>& nums, int k) {
+    int findKthLargest(vector<int> &nums, int k) {
         priority_queue<int> p;
-        for(int i = 0;i<nums.size();i++)
-        {
+        for (int i = 0; i < nums.size(); i++) {
             p.push(nums[i]);
         }
 
-        while (--k)
-        {
+        while (--k) {
             p.pop();
         }
         return p.top();

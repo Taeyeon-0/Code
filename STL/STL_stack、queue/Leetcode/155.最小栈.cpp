@@ -1,32 +1,26 @@
-#include<stack>
+#include <stack>
 using namespace std;
-class MinStack
-{
+class MinStack {
 public:
-    MinStack()
-    {
+    MinStack() {
         min_stack.push(INT_MAX);
     }
 
-    void push(int val)
-    {
+    void push(int val) {
         x_stack.push(val);
         min_stack.push(min(min_stack.top(), val));
     }
 
-    void pop()
-    {
+    void pop() {
         x_stack.pop();
         min_stack.pop();
     }
 
-    int top()
-    {
+    int top() {
         return x_stack.top();
     }
 
-    int getMin()
-    {
+    int getMin() {
         return min_stack.top();
     }
 

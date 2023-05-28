@@ -1,198 +1,171 @@
 #pragma once
-#include <iostream>
-#include <assert.h>
-#include <stdlib.h>
+#include "iterator.h"
 #include <algorithm>
-#include"iterator.h"
+#include <assert.h>
+#include <iostream>
+#include <stdlib.h>
 using namespace std;
-// list - µ×²ãÊÇÒ»¸öË«Ïò´øÍ·Ñ­»·Á´±í
-template <class T>
-struct list_node
-{
-	list_node* next;
-	list_node* prev;
-	T data; // Ä£°åTÀàĞÍ£¬ÊÊÓÃÈÎºÎÀàĞÍ
-	// ¹¹Ôìº¯Êı³õÊ¼»¯ÁĞ±í
-	// T()±»ÓÃÀ´³õÊ¼»¯list_nodeÀàµÄdata³ÉÔ±±äÁ¿£¬ÒÔÈ·±£Ã¿¸öĞÂ´´½¨µÄlist_node¶ÔÏó¶¼ÓĞÒ»¸öºÏÊÊµÄTÀàĞÍµÄÄ¬ÈÏÖµ¡£
-	list_node(const T& x = T()) // T()ÓÃÀ´¸ø×Ô¶¨ÒåÀàĞÍµ÷ÓÃÄ¬ÈÏ¹¹Ôìº¯ÊıÀ´³õÊ¼»¯x
-		: next(nullptr), prev(nullptr), data(x)
-	{
-	}
+// list - åº•å±‚æ˜¯ä¸€ä¸ªåŒå‘å¸¦å¤´å¾ªç¯é“¾è¡¨
+template<class T>
+struct list_node {
+    list_node *next;
+    list_node *prev;
+    T data;// æ¨¡æ¿Tç±»å‹ï¼Œé€‚ç”¨ä»»ä½•ç±»å‹
+    // æ„é€ å‡½æ•°åˆå§‹åŒ–åˆ—è¡¨
+    // T()è¢«ç”¨æ¥åˆå§‹åŒ–list_nodeç±»çš„dataæˆå‘˜å˜é‡ï¼Œä»¥ç¡®ä¿æ¯ä¸ªæ–°åˆ›å»ºçš„list_nodeå¯¹è±¡éƒ½æœ‰ä¸€ä¸ªåˆé€‚çš„Tç±»å‹çš„é»˜è®¤å€¼ã€‚
+    list_node(const T &x = T())// T()ç”¨æ¥ç»™è‡ªå®šä¹‰ç±»å‹è°ƒç”¨é»˜è®¤æ„é€ å‡½æ•°æ¥åˆå§‹åŒ–x
+        : next(nullptr), prev(nullptr), data(x) {
+    }
 };
 
-// listÀà
-template <class T>
-class list
-{
+// listç±»
+template<class T>
+class list {
 public:
-	typedef list_node<T> node;					 // Á´±í
-	typedef list_iterator<T, T&, T*> iterator; // µü´úÆ÷
-	// constµü´úÆ÷ Í¨¹ıconst T& ´«¸øRef £¬const T* ´«¸øPtr
-	typedef list_iterator<T, const T&, const T*> const_iterator; // constµü´úÆ÷ - Í¨¹ıconstµü´úÆ÷·ÃÎÊµÄÊı¾İÎŞ·¨±»ĞŞ¸Ä
-	typedef STL_reverse_iterator<iterator, T&, T*> reverse_iterator;
-	// ½Úµã³õÊ¼»¯
-	void empty_init()
-	{
-		head = new node;
-		head->next = head;
-		head->prev = head;
-	}
-	// listÄ¬ÈÏ¹¹Ôìº¯Êı
-	list()
-	{
-		empty_init();
-	}
+    typedef list_node<T> node;                  // é“¾è¡¨
+    typedef list_iterator<T, T &, T *> iterator;// è¿­ä»£å™¨
+    // constè¿­ä»£å™¨ é€šè¿‡const T& ä¼ ç»™Ref ï¼Œconst T* ä¼ ç»™Ptr
+    typedef list_iterator<T, const T &, const T *> const_iterator;// constè¿­ä»£å™¨ - é€šè¿‡constè¿­ä»£å™¨è®¿é—®çš„æ•°æ®æ— æ³•è¢«ä¿®æ”¹
+    typedef STL_reverse_iterator<iterator, T &, T *> reverse_iterator;
+    // èŠ‚ç‚¹åˆå§‹åŒ–
+    void empty_init() {
+        head = new node;
+        head->next = head;
+        head->prev = head;
+    }
+    // listé»˜è®¤æ„é€ å‡½æ•°
+    list() {
+        empty_init();
+    }
 
-	// ÀûÓÃµü´úÆ÷¹¹Ôìº¯Êı
-	template <class iterator>
-	list(iterator first, iterator last)
-	{
-		empty_init();
-		while (first != last)
-		{
-			push_back(*first);
-			++first;
-		}
-	}
+    // åˆ©ç”¨è¿­ä»£å™¨æ„é€ å‡½æ•°
+    template<class iterator>
+    list(iterator first, iterator last) {
+        empty_init();
+        while (first != last) {
+            push_back(*first);
+            ++first;
+        }
+    }
 
 
-	//¿½±´¹¹Ôì  lt2(lt1)  ÀÏ·½·¨
-	/*
+    //æ‹·è´æ„é€   lt2(lt1)  è€æ–¹æ³•
+    /*
 	list(const list<T>& lt)
 	{
 		empty_init();
 		for (auto e : lt)
 		{
-			push_back(e);  //½«ltµÄÔªËØ¸´ÖÆµ½ÏÖÔÚµÄlistÖĞ
+			push_back(e);  //å°†ltçš„å…ƒç´ å¤åˆ¶åˆ°ç°åœ¨çš„listä¸­
 		}
 	}
 	*/
 
-	void swap(list<T>& tmp)
-	{
-		std::swap(head, tmp.head);  //½»»»Í·Ö¸Õë
-	}
+    void swap(list<T> &tmp) {
+        std::swap(head, tmp.head);//äº¤æ¢å¤´æŒ‡é’ˆ
+    }
 
-	// ¿½±´¹¹Ôì-ÏÖ´ú·½·¨
-	list(const list<T>& lt)
-	{
-		empty_init(); // ±ØĞëÓĞ£¬²»È»)_head¾ÍÊÇ¿ÕÖ¸Õë
-		list<T> tmp(lt.begin(), lt.end());  //ÓÉltµÄµü´úÆ÷£¬¹¹Ôì³öÒ»¸ötmp
-		swap(tmp);   //½»»»tmpºÍthis->headµÄÖ¸Õë
-	}
+    // æ‹·è´æ„é€ -ç°ä»£æ–¹æ³•
+    list(const list<T> &lt) {
+        empty_init();                     // å¿…é¡»æœ‰ï¼Œä¸ç„¶)_headå°±æ˜¯ç©ºæŒ‡é’ˆ
+        list<T> tmp(lt.begin(), lt.end());//ç”±ltçš„è¿­ä»£å™¨ï¼Œæ„é€ å‡ºä¸€ä¸ªtmp
+        swap(tmp);                        //äº¤æ¢tmpå’Œthis->headçš„æŒ‡é’ˆ
+    }
 
-	// ¸³Öµ lt1 = lt3                ÕâÀïlt¾ÍÊÇlt3µÄ¿½±´£¬lt1ÊÇthis
-	list<T>& operator=(list<T> lt)
-	{
-		swap(lt);	  // ½»»» ltºÍthis½»»»
-		return *this; // ·µ»Ø×Ô¼º¾ÍÊÇ·µ»Ølt£¬¸³Öµ¸ø±ğµÄ¶ÔÏó
-	}
+    // èµ‹å€¼ lt1 = lt3                è¿™é‡Œltå°±æ˜¯lt3çš„æ‹·è´ï¼Œlt1æ˜¯this
+    list<T> &operator=(list<T> lt) {
+        swap(lt);    // äº¤æ¢ ltå’Œthisäº¤æ¢
+        return *this;// è¿”å›è‡ªå·±å°±æ˜¯è¿”å›ltï¼Œèµ‹å€¼ç»™åˆ«çš„å¯¹è±¡
+    }
 
-	// µü´úÆ÷Í¨³£½¨Òé½«µü´úÆ÷×÷ÎªÖµ´«µİ£¬¶ø²»ÊÇ×÷ÎªÒıÓÃ´«µİ¡£ÒıÓÃ»áµ¼ÖÂµü´úÆ÷Ê§Ğ§
-	iterator begin()
-	{
-		return iterator(head->next); // µ÷ÓÃÄ¬ÈÏ¹¹Ôìº¯Êı¸ønode³õÊ¼»¯
-	}
+    // è¿­ä»£å™¨é€šå¸¸å»ºè®®å°†è¿­ä»£å™¨ä½œä¸ºå€¼ä¼ é€’ï¼Œè€Œä¸æ˜¯ä½œä¸ºå¼•ç”¨ä¼ é€’ã€‚å¼•ç”¨ä¼šå¯¼è‡´è¿­ä»£å™¨å¤±æ•ˆ
+    iterator begin() {
+        return iterator(head->next);// è°ƒç”¨é»˜è®¤æ„é€ å‡½æ•°ç»™nodeåˆå§‹åŒ–
+    }
 
-	const_iterator begin() const  // constĞŞÊÎµÄº¯Êı£¬ÎŞ·¨¸Ä±ä³ÉÔ±±äÁ¿
-	{
-		return const_iterator(head->next);  // Ö¸Õë²»ÄÜ¸Ä±ä£¬µ«¿ÉÒÔ¸³Öµ¸ø±ğÈË
-	}
+    const_iterator begin() const// constä¿®é¥°çš„å‡½æ•°ï¼Œæ— æ³•æ”¹å˜æˆå‘˜å˜é‡
+    {
+        return const_iterator(head->next);// æŒ‡é’ˆä¸èƒ½æ”¹å˜ï¼Œä½†å¯ä»¥èµ‹å€¼ç»™åˆ«äºº
+    }
 
-	reverse_iterator rbegin()
-	{
-		return reverse_iterator(head->prev);  //rbegin ÊÇ×îºóÒ»¸öÊı
-	}
+    reverse_iterator rbegin() {
+        return reverse_iterator(head->prev);//rbegin æ˜¯æœ€åä¸€ä¸ªæ•°
+    }
 
-	reverse_iterator rend()
-	{
-		return reverse_iterator(head); //rendÊÇÍ·Ö¸Õë
-	}
+    reverse_iterator rend() {
+        return reverse_iterator(head);//rendæ˜¯å¤´æŒ‡é’ˆ
+    }
 
-	iterator end()
-	{
-		// Ë«Ïò´øÍ·Ñ­»·ÅĞÎ²ÊÇÍ·½Úµãhead
-		return iterator(head);
-	}
+    iterator end() {
+        // åŒå‘å¸¦å¤´å¾ªç¯åˆ¤å°¾æ˜¯å¤´èŠ‚ç‚¹head
+        return iterator(head);
+    }
 
-	const_iterator end() const
-	{
-		return const_iterator(head);
-	}
+    const_iterator end() const {
+        return const_iterator(head);
+    }
 
-	// posµü´úÆ÷²»»áÊ§Ğ§£¬²åÈëºó£¬posÎ»ÖÃÓÀÔ¶²»»á±ä£¬µØÖ·²»±ä
-	void insert(iterator pos, const T& x)
-	{
-		// posÊÇÒ»¸öÀà
-		node* cur = pos._node;		// ÏÈÈ¡posÎ»ÖÃµÄ½ÚµãµØÖ·
-		node* prevnode = cur->prev; // ¼ÇÂ¼posÎ»ÖÃµÄÇ°½Úµã
+    // posè¿­ä»£å™¨ä¸ä¼šå¤±æ•ˆï¼Œæ’å…¥åï¼Œposä½ç½®æ°¸è¿œä¸ä¼šå˜ï¼Œåœ°å€ä¸å˜
+    void insert(iterator pos, const T &x) {
+        // posæ˜¯ä¸€ä¸ªç±»
+        node *cur = pos._node;     // å…ˆå–posä½ç½®çš„èŠ‚ç‚¹åœ°å€
+        node *prevnode = cur->prev;// è®°å½•posä½ç½®çš„å‰èŠ‚ç‚¹
 
-		node* newnode = new node(x);
-		prevnode->next = newnode;
-		newnode->prev = prevnode;
-		newnode->next = cur;
-		cur->prev = newnode;
-	}
+        node *newnode = new node(x);
+        prevnode->next = newnode;
+        newnode->prev = prevnode;
+        newnode->next = cur;
+        cur->prev = newnode;
+    }
 
-	iterator erase(iterator pos)
-	{
-		if (pos != end())
-		{
-			// ÏÈ¼ÇÂ¼Ç°½Úµã ºó½Úµã
-			node* prevnode = pos._node->prev;
-			node* nextnode = pos._node->next;
+    iterator erase(iterator pos) {
+        if (pos != end()) {
+            // å…ˆè®°å½•å‰èŠ‚ç‚¹ åèŠ‚ç‚¹
+            node *prevnode = pos._node->prev;
+            node *nextnode = pos._node->next;
 
-			prevnode->next = nextnode;
-			nextnode->prev = prevnode;
-			delete pos._node;
-			// ·µ»ØÏÂÒ»¸öµØÖ·
-			return iterator(nextnode);
-		}
-		else
-		{
-			perror("erase fail");
-			exit(-1);
-		}
-	}
+            prevnode->next = nextnode;
+            nextnode->prev = prevnode;
+            delete pos._node;
+            // è¿”å›ä¸‹ä¸€ä¸ªåœ°å€
+            return iterator(nextnode);
+        } else {
+            perror("erase fail");
+            exit(-1);
+        }
+    }
 
-	void push_back(const T& x)
-	{
-		insert(end(), x); // ¸´ÓÃ
-	}
+    void push_back(const T &x) {
+        insert(end(), x);// å¤ç”¨
+    }
 
-	void pop_back()
-	{
-		erase(end()--); // end()ÊÇÍ·Ö¸Õë£¬Í·Ö¸ÕëµÄprevÊÇÎ²½Úµã
-	}
+    void pop_back() {
+        erase(end()--);// end()æ˜¯å¤´æŒ‡é’ˆï¼Œå¤´æŒ‡é’ˆçš„prevæ˜¯å°¾èŠ‚ç‚¹
+    }
 
-	void push_front(const T& x)
-	{
-		insert(begin(), x);
-	}
+    void push_front(const T &x) {
+        insert(begin(), x);
+    }
 
-	void pop_front()
-	{
-		erase(begin());
-	}
+    void pop_front() {
+        erase(begin());
+    }
 
-	void clear()
-	{
-		// ÇåÀíÄÚ´æ - ²»ÇåÀíÍ·½Úµã
-		iterator it = begin();
-		while (it != end())
-		{
-			erase(it);
-			it++;
-		}
-	}
+    void clear() {
+        // æ¸…ç†å†…å­˜ - ä¸æ¸…ç†å¤´èŠ‚ç‚¹
+        iterator it = begin();
+        while (it != end()) {
+            erase(it);
+            it++;
+        }
+    }
 
-	~list()
-	{
-		clear();
-		delete head;
-		head = nullptr;
-	}
+    ~list() {
+        clear();
+        delete head;
+        head = nullptr;
+    }
 
 private:
-	node* head; // Í·½Úµã - listÖ»ÓĞÒ»¸öÊı¾İ³ÉÔ±£¬Í·½Úµã
+    node *head;// å¤´èŠ‚ç‚¹ - liståªæœ‰ä¸€ä¸ªæ•°æ®æˆå‘˜ï¼Œå¤´èŠ‚ç‚¹
 };

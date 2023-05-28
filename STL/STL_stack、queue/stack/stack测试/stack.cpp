@@ -1,18 +1,16 @@
 #include <iostream>
-#include <vector>
 #include <list>
 #include <stack>
+#include <vector>
 
 using namespace std;
 
-int main()
-{
+int main() {
     vector<int> v{1, 2, 3, 4, 5};
-    for (auto e : v)
-    {
-        cout << e << " "; // 1 2 3 4 5
+    for (auto e: v) {
+        cout << e << " ";// 1 2 3 4 5
     }
-    
+
     cout << endl;
     // 定义一个int类型的栈，默认底层容器是deque(双端队列)
     stack<int> st;
@@ -25,11 +23,10 @@ int main()
     st.push(2);
     st.push(3);
     st.push(4);
-    cout << st.size() << endl; // 4
+    cout << st.size() << endl;// 4
 
-    while (!st.empty())
-    {
-        cout << st.top() << " "; // 4 3 2 1
+    while (!st.empty()) {
+        cout << st.top() << " ";// 4 3 2 1
         st.pop();
     }
     cout << endl;
