@@ -14,4 +14,4 @@ namespace phw {
     private:
         HashTable<K, K, SetKeyOft> _ht;
     };
-};// namespace phw
+};
