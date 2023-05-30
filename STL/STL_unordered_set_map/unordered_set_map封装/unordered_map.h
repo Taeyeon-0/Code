@@ -1,4 +1,4 @@
-\#pragma once
+#pragma once
 
 #include "HashTable.h"
         template<class K, class V>
