@@ -71,14 +71,10 @@ struct HashIterator {
         return _node == s._node;
     }
 
-    Self &operator++() 
-    {
-        if (_node->_next != nullptr) 
-        {
+    Self &operator++() {
+        if (_node->_next != nullptr) {
             _node = _node->_next;
-        } 
-        else 
-        {
+        } else {
             //找下一个不为空的桶
             KeyOft kot;
             Hash hash;
@@ -114,7 +110,7 @@ public:
     typedef HashIterator<K, T, const T &, const T *, KeyOft, Hash> const_iterator;
 
     template<class K1, class T1, class Ref1, class Ptr1, class KeyOft1, class Hash1>
-    friend struct HashIterator;   //用于迭代器访问HashTable中的private成员变量，即_tables
+    friend struct HashIterator;//用于迭代器访问HashTable中的private成员变量，即_tables
 
 
 public:
