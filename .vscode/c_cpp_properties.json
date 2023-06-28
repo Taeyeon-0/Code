@@ -10,11 +10,10 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "windowsSdkVersion": "10.0.22000.0",
-            "compilerPath": "cl.exe",
+            "compilerPath": "E:\\Program tool\\mingw64\\bin\\gcc.exe",
             "cStandard": "c17",
-            "cppStandard": "c++14",
-            "intelliSenseMode": "windows-msvc-x64"
+            "cppStandard": "c++23",
+            "intelliSenseMode": "windows-gcc-x64"
         }
     ],
     "version": 4
