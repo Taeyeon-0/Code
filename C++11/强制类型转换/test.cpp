@@ -160,3 +160,33 @@ int main() {
     test6();
     return 0;
 }
+
+// class A{
+// public:
+// 	//explicit A(int a)   //不允许隐式类型转换
+// 	A(int a)
+// 		:_a(a)
+// 	{}
+
+
+// 	explicit operator int(){
+// 		return _a;
+// 	}
+
+// private:
+// 	int _a;
+// };
+
+// void test7(){
+// 	// 内置类型 转换成自定义类型
+// 	A aa1 = 1; // 隐式类型转换 用1构造A临时对象，再拷贝构造aa1，优化后直接1构造aa1
+// 	//A& aa2 = 1;  err
+// 	const A& aa2 = 1;
+// 	A&& aa3 = 1;
+
+// 	// 自定义类型 转换成内置类型
+// 	//int i = aa1;   //
+// 	int i1 = (int)aa1;
+// 	int i2 = static_cast<int>(aa1);
+
+// }
