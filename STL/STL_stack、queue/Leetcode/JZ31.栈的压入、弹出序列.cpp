@@ -13,7 +13,7 @@ public:
             if (st.top() != popV[j]) {
                 continue;
             } else {
-                while (!st.empty() && j < popV.size() && st.top() == popV[j]) {
+                while (!st.empty() && st.top() == popV[j]) {
                     st.pop();
                     j++;
                 }
