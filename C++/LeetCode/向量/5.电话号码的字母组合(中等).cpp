@@ -1,8 +1,16 @@
-// 给定一个仅包含数字2-9的字符串，返回所有它能表示的字母组合。答案可以按任意顺序返回。
+/* 
+给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
 
-// 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+2 - abc
+3 - def
+4 - ghi
+5 - jkl
+6 - mno
+7 - pqrs
+8 - tuv
+9 - wxyz
 
-/*
 示例 1：
 输入：digits = "23"
 输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
@@ -15,6 +23,7 @@
 输入：digits = "2"
 输出：["a","b","c"]
 */
+
 #include <string>
 #include <vector>
 using namespace std;
@@ -50,34 +59,3 @@ public:
         Combantions(digits, 0, "", strV);
     }
 };
-
-/* class Solution
-{
-public:
-    string _numTostr[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-    void Combinations(const string &digits, size_t di, string combineStr, vector<string> &strV)
-    {
-        if (di == digits.size())
-        {
-            strV.push_back(combineStr);
-            return;
-        }
-        // 首先，获取数字，数字存放在digits中，用di-'0'获取字符串digits里的数字字符
-        int num = digits[di] - '0';
-        // 取当前层的str串,num是几，就取_numTostr对应下标的串
-        string str = _numTostr[num];
-
-        for (int i = 0; i < str.size(); i++)
-        {
-            Combinations(digits, di + 1, combineStr + str[i], strV);
-        }
-    }
-    vector<string> letterCombinations(string digits)
-    {
-        vector<string> strV;
-        if (digits == "")
-            return strV;
-        Combinations(digits, 0, "", strV);
-        return strV;
-    }
-}; */
