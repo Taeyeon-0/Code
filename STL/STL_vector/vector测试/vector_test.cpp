@@ -108,6 +108,7 @@ void test_vector3() {
     }
     cout << endl;
 
+    v.resize(8);
     cout << v.size() << endl;    // 12
     cout << v.capacity() << endl;// 16
     cout << v.empty() << endl;   // 0
