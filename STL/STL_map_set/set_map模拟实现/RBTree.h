@@ -19,14 +19,15 @@ struct RBTreeNode {
     // 在单参数构造函数中使用 explicit 关键字是一种好的编程习惯，可以提高代码的可读性和健壮性。
     // 加上 explicit 关键字，以避免出现不必要的隐式类型转换。如果没有加上 explicit 关键字，那么可以使用该构造函数创建一个 RBTreeNode 对象时，会发生隐式类型转换，将一个 pair<K, V> 类型的对象转换为 RBTreeNode 对象，这可能导致程序行为出现意外的结果。
     RBTreeNode(const T &data)
-        : _left(nullptr), _right(nullptr), _parent(nullptr), _data(data), _col(RED) {
-    }
+        : _left(nullptr), _right(nullptr), _parent(nullptr), _data(data), _col(RED) {}
 };
 
 // 迭代器
-
 template<class T, class Ref, class Ptr>
 struct __RBTreeIterator {
+    typedef Ref reference;//结点指针的引用
+    typedef Ptr pointer;  //结点指针
+
     typedef RBTreeNode<T> Node;
     typedef __RBTreeIterator<T, Ref, Ptr> Self;
     Node *_node;// 成员变量
@@ -57,6 +58,10 @@ struct __RBTreeIterator {
 
     bool operator!=(const Self &s) {
         return _node != s._node;
+    }
+
+    bool operator==(const Self &s) const {
+        return _node == s._node;//判断两个正向迭代器所封装的结点是否是同一个
     }
 
     Self &operator++() {
@@ -108,10 +113,50 @@ struct __RBTreeIterator {
     }
 };
 
+//反向迭代器---迭代器适配器
+template<class Iterator>
+struct ReverseIterator {
+    typedef ReverseIterator<Iterator> Self;  //反向迭代器的类型
+    typedef typename Iterator::reference Ref;//结点指针的引用
+    typedef typename Iterator::pointer Ptr;  //结点指针
+
+    Iterator _it;//反向迭代器所封装的正向迭代器
+
+    //构造函数
+    ReverseIterator(Iterator it)
+        : _it(it)//根据所给正向迭代器构造一个反向迭代器
+    {}
+
+    Ref operator*() {
+        return *_it;//通过调用正向迭代器的operator*返回结点数据的引用
+    }
+    Ptr operator->() {
+        return _it.operator->();//通过调用正向迭代器的operator->返回结点数据的指针
+    }
+
+    //前置++
+    Self &operator++() {
+        --_it;//调用正向迭代器的前置--
+        return *this;
+    }
+    //前置--
+    Self &operator--() {
+        ++_it;//调用正向迭代器的前置++
+        return *this;
+    }
+    bool operator!=(const Self &s) const {
+        return _it != s._it;//调用正向迭代器的operator!=
+    }
+    bool operator==(const Self &s) const {
+        return _it == s._it;//调用正向迭代器的operator==
+    }
+};
+
+
 // 仿函数，用于pair的比较
 template<class K, class T, class KeyOfT>
 class RBTree {
-    typedef RBTreeNode<T> Node;
+    typedef RBTreeNode<T> Node;//结点的类型
 
 public:
     // 析构函数
@@ -123,6 +168,9 @@ public:
 public:// 迭代器相关
     typedef __RBTreeIterator<T, T &, T *> iterator;
     typedef __RBTreeIterator<T, const T &, const T *> const_iterator;
+
+    typedef ReverseIterator<iterator> reverse_iterator;            //反向迭代器
+    typedef ReverseIterator<const_iterator> reverse_const_iterator;//反向迭代器
     // 迭代器最开始应该是树的最左边(中序)
     iterator begin() {
         Node *cur = this->_root;
@@ -148,6 +196,34 @@ public:// 迭代器相关
 
     const_iterator end() const {
         return const_iterator(nullptr);
+    }
+
+    reverse_iterator rbegin() {
+        //寻找最右结点
+        Node *right = _root;
+        while (right && right->_right) {
+            right = right->_right;
+        }
+        //返回最右结点的反向迭代器
+        return reverse_iterator(iterator(right));
+    }
+    reverse_iterator rend() {
+        //返回由nullptr构造得到的反向迭代器（不严谨）
+        return reverse_iterator(iterator(nullptr));
+    }
+
+    reverse_const_iterator rbegin() const {
+        //寻找最右结点
+        Node *right = _root;
+        while (right && right->_right) {
+            right = right->_right;
+        }
+        //返回最右结点的反向迭代器
+        return reverse_const_iterator(const_iterator(right));
+    }
+    reverse_const_iterator rend() const {
+        //返回由nullptr构造得到的反向迭代器（不严谨）
+        return reverse_const_iterator(const_iterator(nullptr));
     }
 
 public:

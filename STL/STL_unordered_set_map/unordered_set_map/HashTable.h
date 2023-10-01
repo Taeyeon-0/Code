@@ -46,12 +46,12 @@ struct HashIterator {
     typedef HashTable<K, T, KeyOft, Hash> HT;
     //Ref和Ptr可能是T&和T*，也可能是const T&/const T*，需要创建一个支持普通转换为const的迭代器
     typedef HashIterator<K, T, Ref, Ptr, KeyOft, Hash> Self;
-    typedef HashIterator<K, T, T &, T *, KeyOft, Hash> iterator;//增加一个支持const的迭代器
+    typedef HashIterator<K, T, T &, T *, KeyOft, Hash> iterator;//正向迭代器
 
     HashIterator(Node *node, HT *ht)
         : _node(node), _ht(ht) {}
 
-    //支持迭代器
+    //正向迭代器实现反向迭代器,不能只靠self，如果self传的就是const迭代器，再加上const就有问题了
     HashIterator(const iterator &it)
         : _node(it._node), _ht(it._ht) {}
 
@@ -110,8 +110,7 @@ public:
     typedef HashIterator<K, T, const T &, const T *, KeyOft, Hash> const_iterator;
 
     template<class K1, class T1, class Ref1, class Ptr1, class KeyOft1, class Hash1>
-    friend struct HashIterator;//用于迭代器访问HashTable中的private成员变量，即_tables
-
+    friend struct HashIterator;//用于迭代器访问HashTable中的private成员变量，即_tables、
 
 public:
     ~HashTable() {

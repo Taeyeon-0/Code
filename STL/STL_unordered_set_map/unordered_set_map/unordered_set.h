@@ -1,7 +1,6 @@
 #pragma once
 #include "HashTable.h"
 
-
 template<class K, class Hash = HashFunc<K>>
 class unordered_set {
 public:

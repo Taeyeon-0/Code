@@ -14,6 +14,7 @@ namespace phw {
 
     public:
         typedef typename RBTree<K, pair<const K, V>, MapKeyOfT>::iterator iterator;
+        typedef typename RBTree<K, pair<K, V>, MapKeyOfT>::reverse_iterator reverse_iterator;//反向迭代器
 
         iterator begin() {
             return _t.begin();
@@ -21,6 +22,14 @@ namespace phw {
 
         iterator end() {
             return _t.end();
+        }
+
+        reverse_iterator rbegin() {
+            return _t.rbegin();
+        }
+
+        reverse_iterator rend() {
+            return _t.rend();
         }
 
         V &operator[](const K &key) {
@@ -32,9 +41,17 @@ namespace phw {
 
             return _t.Insert(kv);
         }
+        //删除函数
+        void erase(const K &key) {
+            _t.Erase(key);
+        }
+        //查找函数
+        iterator find(const K &key) {
+            return _t.Find(key);
+        }
 
         void InOrder() {
-            //_t.InOrder();
+            _t.InOrder();
         }
 
     private:
