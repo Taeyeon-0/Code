@@ -1,17 +1,18 @@
 #include<stdio.h>
-//1.CÓïÑÔÖÐÓÐÄÄÐ©Êý¾ÝÀàÐÍ£¿
-// char - ×Ö·ûÊý¾ÝÀàÐÍ
-// short - ¶ÌÕûÐÍ
-// int - ÕûÐÎ
-// long - ³¤ÕûÐÍ
-// long long - ¸ü³¤µÄÕûÐÎ
-// float - µ¥¾«¶È¸¡µãÊý
-// double - Ë«¾«¶È¸¡µãÊý
-// CÓïÑÔÖÐÓÐÃ»ÓÐ×Ö·û´®ÀàÐÍ    -  ´ð£ºÃ»ÓÐ£¡£¡
+
+//1.Cè¯­è¨€ä¸­æœ‰å“ªäº›æ•°æ®ç±»åž‹ï¼Ÿ
+// char - å­—ç¬¦æ•°æ®ç±»åž‹
+// short - çŸ­æ•´åž‹
+// int - æ•´å½¢
+// long - é•¿æ•´åž‹
+// long long - æ›´é•¿çš„æ•´å½¢
+// float - å•ç²¾åº¦æµ®ç‚¹æ•°
+// double - åŒç²¾åº¦æµ®ç‚¹æ•°
+// Cè¯­è¨€ä¸­æœ‰æ²¡æœ‰å­—ç¬¦ä¸²ç±»åž‹    -  ç­”ï¼šæ²¡æœ‰ï¼ï¼
 
 
-//2.Ã¿ÖÖÀàÐÍµÄ´óÐ¡ÊÇ¶àÉÙ£¿
-// VSÖÐµÄÊý¾ÝÀàÐÍÊÇÒÔÏÂ£¬ µ«ÊÇ²»Í¬µÄ±àÒëÆ÷ ÓÐ²»Í¬µÄÖµ
+//2.æ¯ç§ç±»åž‹çš„å¤§å°æ˜¯å¤šå°‘ï¼Ÿ
+// VSä¸­çš„æ•°æ®ç±»åž‹æ˜¯ä»¥ä¸‹ï¼Œ ä½†æ˜¯ä¸åŒçš„ç¼–è¯‘å™¨ æœ‰ä¸åŒçš„å€¼
 int main()
 {
 	printf("%zd\n", sizeof(char));   //1
@@ -23,10 +24,11 @@ int main()
 	printf("%zd\n", sizeof(double));   //8
 	printf("%zd\n", sizeof(long double));    //8
 
-	//ÀàÐÍµÄÊ¹ÓÃ¶¨Òå
+	//ç±»åž‹çš„ä½¿ç”¨å®šä¹‰
 	char ch = 'w';
 	int weight = 120;
 	int salary = 20000;
+	
 	return 0;
 }
-// sizeofÊÇ¹Ø¼ü×Ö ËüµÄÊä³ö¸ñÊ½ÊÇ%zd
+// sizeofæ˜¯å…³é”®å­— å®ƒçš„è¾“å‡ºæ ¼å¼æ˜¯%zd
