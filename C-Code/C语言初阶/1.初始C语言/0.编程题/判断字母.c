@@ -1,20 +1,15 @@
 #include <stdio.h>
-int main()
-{
+int main() {
     int ch = 0;
-    while ((ch = getchar()) != EOF)
-    {
-        //ÅÐ¶Ï×ÖÄ¸
-        if((ch>='A' && ch<='Z') || (ch>='a' && ch<='z'))
-        {
+    while ((ch = getchar()) != EOF) {
+        //åˆ¤æ–­å­—æ¯
+        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
             printf("YES\n");
-        }
-        else
-        {
+        } else {
             printf("NO\n");
         }
-        //ÇåÀíµô\n
-        int b = getchar();   //ÐèÒª±äÁ¿À´½ÓÊÜgetcharµÄ·µ»ØÖµ
+        //æ¸…ç†æŽ‰\n
+        int b = getchar();//éœ€è¦å˜é‡æ¥æŽ¥å—getcharçš„è¿”å›žå€¼
     }
     return 0;
 }

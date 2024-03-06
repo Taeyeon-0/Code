@@ -1,6 +1,5 @@
 #include <stdio.h>
-int main()
-{
+int main() {
     int sec = 0;
     scanf("%d", &sec);
     int h = sec / 60 / 60;
