@@ -1,9 +1,9 @@
-#include<stdio.h>
-int main()
-{
-	printf("Hello World\n");
-	printf("hehe\n");
-	return 0;
+#include <stdio.h>
+
+int main() {
+    printf("Hello World\n");
+	
+    return 0;
 }
 //解释：
 //main函数是程序的入口
