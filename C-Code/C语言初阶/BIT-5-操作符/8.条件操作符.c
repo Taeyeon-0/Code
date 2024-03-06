@@ -1,0 +1,1 @@
+//exp1 ? exp2 : exp3#include<stdio.h>/*int main(){	int a = 3;	int b = 0;	if (a > 5)		b = 3;	else		b = -3;	b = ((a > 5) ? 3 : -3);	int m = (a > b ? a : b);	return 0;}*/
